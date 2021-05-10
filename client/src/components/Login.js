@@ -1,6 +1,7 @@
 import React from 'react';
 import {useState} from 'react';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import history from '../utils/history'
 
 function Login(props) {
 
@@ -9,7 +10,7 @@ function Login(props) {
   const handleChange = (e) => {
     setCredentials({
       ...credentials,
-      [e.target.name] : [e.target.value]
+      [e.target.name] : e.target.value
     })
   }
   
@@ -19,9 +20,13 @@ function Login(props) {
       headers: {
         'Content-Type': 'application/json'
       },
-      body
+      body: JSON.stringify(credentials)
+    }).then(response => response.json())
+    .then(result => {
+      console.log(result)
     })
   }
+  console.log(credentials)
 
 
 
@@ -33,7 +38,7 @@ function Login(props) {
     <div>
       <h1 className="loginHeader">Login</h1>
       <input type="text" onChange={handleChange} className="username" name='username' />
-      <input type="password" onChage={handleChange} className="password" name='password' />
+      <input type="password" onChange={handleChange} className="password" name='password' />
       <button onClick={handleLogin} className="loginBtn">Enter</button>
     </div>
   )

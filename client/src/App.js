@@ -1,7 +1,8 @@
 import logo from './logo.svg';
-import './App.css';
+import './components/App.css';
 import Application from './components/Application';
 import Register from './components/Registration';
+import Login from './components/Login';
 
 function App() {
   return (

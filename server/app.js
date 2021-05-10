@@ -37,6 +37,8 @@ app.post("/register", (req, res) => {
   });
 });
 
+
+
 app.post("/login", (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
@@ -50,6 +52,7 @@ app.post("/login", (req, res) => {
       bcrypt.compare(password, user.password, function (error, result) {
         if (result) {
           var token = jwt.sign({ username: username }, "KRABBYPATTYFORMULA");
+          console.log(result)
           res.json({ success: true, userId: user.id, token: token });
         } else {
           res.json({
