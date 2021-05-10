@@ -15,7 +15,7 @@ const onChange = (e) => {
 const addApp = () => {
 
   fetch('http://localhost:8080/app', {
-    method: 'POSt',
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
