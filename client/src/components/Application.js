@@ -10,13 +10,13 @@ function Application() {
         <input type='text' placeholder='Job Title' name='title' />
         <input type='date' name='date' />
         <input type='checkbox' name='assessment' id='assessment'/>
-        <label>Assessment</label>
+          <label>Assessment</label>
         <input type='checkbox' name='interiew' />
-        <label>Interview</label>
+          <label>Interview</label>
         <input type='checkbox' name='rejection' />
-        <lable>Rejection</lable>
+          <lable>Rejection</lable>
         <input type='checkbox' name='visibility' />
-        <label>Hide Application</label>
+          <label>Hide Application</label>
         <button>Submit</button>
       </form>
     </div>
