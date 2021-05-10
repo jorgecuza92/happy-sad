@@ -3,6 +3,7 @@ const cors = require ('cors')
 const models = require('./models')
 const { Op } = require('sequelize')
 var bcrypt = require("bcryptjs");
+const { sequelize } = require('./models');
 
 
 const app = express()
@@ -63,6 +64,29 @@ app.post('/app', (req, res) => {
     
 
 })
+
+app.get('/feed/:page', (req, res) => {
+
+    let page = req.params.page
+
+    models.Application.findOne({
+        order: [
+            ['id', 'DESC']
+        ]
+    })
+    .then(result => {
+        let offset = page * 10
+        models.Application.findAll({
+            order: [
+                ['id', 'DESC']
+            ],
+            offset: offset, limit: 10
+        }) .then(apps => {
+            res.json(apps)
+        })
+    })
+})
+
 
 app.get('/', (req, res) => {
     res.json({message: 'working'})
