@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import './App.css'
-
-
-
-
+import './App.css';
+import grinning from '../img/grinning.png';
+import heart from '../img/heart.png';
+import raised_hands from '../img/raised_hands.png';
+import tada from '../img/tada.png';
 
 
 
@@ -13,10 +13,22 @@ class Feed extends Component {
       super(props);
       this.state = {
         posts: [],
-        page: 0
+        page: 0,
+        liked: false,
+        count: 0
   
       }
     }
+
+    likedToggle = () => {
+      if(this.props.likeAll===undefined){
+      this.setState ({
+        liked : !this.state.liked
+      })
+      this.props.updateLikes(this.state.liked,this.props.post)
+    }
+    }
+  
   
     fetchData = (pageNum) => {
       let postUrl = 'http://localhost:8080/feed/'+pageNum;
@@ -52,7 +64,7 @@ class Feed extends Component {
       return (
         
          
-         <div>
+         <div className="postDivContainer">
            {this.state.posts.map((postdata,idx) => (<Post key={idx} post={postdata} />))}
          </div>
        
@@ -68,6 +80,32 @@ class Post extends Component {
       <div className="postDiv">
         <div style={{fontSize:'10pt'}}>{this.props.post.title}</div>
         <p style={{fontSize:'10pt'}}>{this.props.post.company}</p>
+        <div className="emojiContainer">
+          <div className="emojiBox">
+            <div><img src={grinning} alt="" className="emoji" onClick={this.likedToggle}/></div>
+            <div><h5>{this.props.post.grinning}</h5></div>
+            
+          </div>
+          <div className="emojiBox">
+            <div><img src={raised_hands} alt="" className="emoji" onClick={this.likedToggle}/></div>
+            <div><h5>{this.props.post.grinning}</h5></div>
+            
+          </div>
+          <div className="emojiBox">
+            <div><img src={heart} alt="" className="emoji" onClick={this.likedToggle}/></div>
+            <div><h5>{this.props.post.grinning}</h5></div>
+            
+          </div>
+          <div className="emojiBox">
+            <div><img src={tada} alt="" className="emoji" onClick={this.likedToggle}/></div>
+            <div><h5>{this.props.post.grinning}</h5></div>
+            
+          </div>
+        
+        
+        
+        </div>
+      
       </div>
     )
   }
