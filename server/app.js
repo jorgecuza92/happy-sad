@@ -1,13 +1,12 @@
-const express = require("express");
-const cors = require("cors");
-const models = require("./models");
-const { Op } = require("sequelize");
+
+const express = require('express')
+const cors = require('cors')
+const models = require('./models')
+const { Op } = require('sequelize')
 var bcrypt = require("bcryptjs");
-<<<<<<< HEAD
 const jwt = require("jsonwebtoken");
-=======
 const { sequelize } = require('./models');
->>>>>>> 9a8b3c52eab9006bda91f508e32bf1a69752cdd0
+
 
 const app = express();
 
@@ -92,38 +91,28 @@ app.post("/app", (req, res) => {
   });
 });
 
-<<<<<<< HEAD
-app.get("/", (req, res) => {
-  res.json({ message: "working" });
-});
-=======
+
 app.get('/feed/:page', (req, res) => {
 
     let page = req.params.page
+    let offset = page * 10
 
-    models.Application.findOne({
+    models.Application.findAll({
         order: [
             ['id', 'DESC']
-        ]
+        ],
+        offset: offset, limit: 10
+    }).then(apps => {
+        res.json(apps)
     })
-    .then(result => {
-        let offset = page * 10
-        models.Application.findAll({
-            order: [
-                ['id', 'DESC']
-            ],
-            offset: offset, limit: 10
-        }) .then(apps => {
-            res.json(apps)
-        })
-    })
+
 })
 
 
 app.get('/', (req, res) => {
-    res.json({message: 'working'})
+    res.json({ message: 'working' })
 })
->>>>>>> 9a8b3c52eab9006bda91f508e32bf1a69752cdd0
+
 
 app.listen(8080, () => {
   console.log("Ready to be HAPPY about Sadness...");
