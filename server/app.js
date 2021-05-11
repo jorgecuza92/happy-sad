@@ -1,5 +1,5 @@
 const express = require('express')
-const cors = require ('cors')
+const cors = require('cors')
 const models = require('./models')
 const { Op } = require('sequelize')
 var bcrypt = require("bcryptjs");
@@ -13,32 +13,32 @@ app.use(cors())
 
 
 
-app.post('/register', (req,res)=>{
+app.post('/register', (req, res) => {
     let username = req.body.username
     let password = req.body.password
     let email = req.body.email
 
-    bcrypt.genSalt(10, function (error,salt){
-        bcrypt.hash(password, salt, function(error, hash){
-            if(!error){
+    bcrypt.genSalt(10, function (error, salt) {
+        bcrypt.hash(password, salt, function (error, hash) {
+            if (!error) {
                 let newUser = models.User.build({
                     username: username,
                     password: hash,
                     email: email
                 })
-                newUser.save((error)=>{
-                    if(error){
-                     res.json({ error: "Unable to Register!" });
-                    }else{
-                     res.json({ success: true, message: "Saved new User" });
+                newUser.save((error) => {
+                    if (error) {
+                        res.json({ error: "Unable to Register!" });
+                    } else {
+                        res.json({ success: true, message: "Saved new User" });
                     }
                 })
             } else {
-             res.json({ success: false });
+                res.json({ success: false });
 
             }
         })
-    })  
+    })
 })
 
 
@@ -49,47 +49,41 @@ app.post('/app', (req, res) => {
     let jobTitle = req.body.title
     let seeJob = req.body.seeJob
     let date = Date.now()
-    
+
     let newApp = models.Application.build({
         user_id: userid,
         company: company,
         title: jobTitle
-    }) 
+    })
 
     newApp.save().then((savedApp) => {
-        res.json ({
+        res.json({
             success: true
         })
     })
-    
+
 
 })
 
 app.get('/feed/:page', (req, res) => {
 
     let page = req.params.page
+    let offset = page * 10
 
-    models.Application.findOne({
+    models.Application.findAll({
         order: [
             ['id', 'DESC']
-        ]
+        ],
+        offset: offset, limit: 10
+    }).then(apps => {
+        res.json(apps)
     })
-    .then(result => {
-        let offset = page * 10
-        models.Application.findAll({
-            order: [
-                ['id', 'DESC']
-            ],
-            offset: offset, limit: 10
-        }) .then(apps => {
-            res.json(apps)
-        })
-    })
+
 })
 
 
 app.get('/', (req, res) => {
-    res.json({message: 'working'})
+    res.json({ message: 'working' })
 })
 
 app.listen(8080, () => {
