@@ -56,7 +56,7 @@ app.post("/login", (req, res) => {
         if (result) {
           var token = jwt.sign({ username: username }, "KRABBYPATTYFORMULA");
           console.log(result)
-          res.json({ success: true, userId: user.id, token: token });
+          res.json({ success: true, userId: user.id, token: token, username: username });
         } else {
           res.json({
             success: false,
