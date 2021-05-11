@@ -22,7 +22,8 @@ module.exports = (sequelize, DataTypes) => {
     raised_hands: DataTypes.INTEGER,
     heart: DataTypes.INTEGER,
     tada: DataTypes.INTEGER,
-    grinning: DataTypes.INTEGER
+    grinning: DataTypes.INTEGER,
+    total_apps: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'User',

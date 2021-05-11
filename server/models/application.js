@@ -22,7 +22,11 @@ module.exports = (sequelize, DataTypes) => {
     assessment: DataTypes.BOOLEAN,
     interview: DataTypes.BOOLEAN,
     rejection: DataTypes.BOOLEAN,
-    hide_application: DataTypes.BOOLEAN
+    hide_application: DataTypes.BOOLEAN,
+    raised_hands: DataTypes.INTEGER,
+    heart: DataTypes.INTEGER,
+    tada: DataTypes.INTEGER,
+    grinning: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Application',
