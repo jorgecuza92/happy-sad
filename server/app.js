@@ -1,8 +1,10 @@
+
 const express = require('express')
 const cors = require('cors')
 const models = require('./models')
 const { Op } = require('sequelize')
 var bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const { sequelize } = require('./models');
 
 
@@ -40,6 +42,34 @@ app.post('/register', (req, res) => {
         })
     })
 })
+
+app.post("/login", (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
+
+  models.User.findOne({
+    where: {
+      username: username,
+    },
+  })
+    .then((user) => {
+      bcrypt.compare(password, user.password, function (error, result) {
+        if (result) {
+          var token = jwt.sign({ username: username }, "KRABBYPATTYFORMULA");
+          console.log(result)
+          res.json({ success: true, userId: user.id, token: token, username: username });
+        } else {
+          res.json({
+            success: false,
+            message: "username and/or password invalid.",
+          });
+        }
+      });
+    })
+    .catch((error) => {
+      res.json({ success: false, message: "User not found in database." });
+    });
+});
 
 
 app.post('/app', (req, res) => {
