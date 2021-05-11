@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './components/App.css';
 import Application from './components/Application';
 import Register from './components/Registration';
+import Login from './components/Login';
 import React, { Component } from 'react';
 
 class Post extends Component {
