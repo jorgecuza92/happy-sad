@@ -93,6 +93,7 @@ app.post("/app", (req, res) => {
 
 
 app.get('/feed/:page', (req, res) => {
+    console.log('request recieved')
 
     let page = req.params.page
     let offset = page * 10
