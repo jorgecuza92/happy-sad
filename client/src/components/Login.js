@@ -23,7 +23,14 @@ function Login(props) {
       body: JSON.stringify(credentials)
     }).then(response => response.json())
     .then(result => {
-      console.log(result)
+      if(result.success) {
+        const token = result.token
+        // get the token and place in local storage
+        localStorage.setItem('jsonwebtoken', token)
+        localStorage.setItem('username', result.username)
+        // take user to the dashboard (dont have dashboard route yet)
+        props.history.push('/')
+      }
     })
   }
   console.log(credentials)
