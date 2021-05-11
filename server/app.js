@@ -65,6 +65,45 @@ app.post('/app', (req, res) => {
 
 })
 
+app.get('/emoji/:data', (req, res) => {
+    //http://localhost:8080/emoji/1,2,80,heart 1 is sender, 2, is user, 80 is application, heart is emoji
+    let data = req.params.data
+    let string = data.split(",")
+    //This is the User ID for the sender of the emoji
+    let sender = string[0]
+    //This is the User ID of the recipient
+    let user = string[1]
+    let application = string[2]
+    let emoji = string[3]
+
+    console.log(data)
+
+
+    //Updating the count in the Application Table
+    models.Application.update({
+        [emoji]: sequelize.literal(`${emoji} + 1`)
+    }, {
+        where: {
+            id: application
+        }
+    })
+
+    //update the count in the User Table
+    models.User.update({
+        [emoji]: sequelize.literal(`${emoji} + 1`)
+    }, {
+        where: {
+            id: user
+        }
+    })
+
+    //Still need MongoDB database for user sending emoji
+
+    res.json({life: 'continues'})
+
+
+})
+
 app.get('/feed/:page', (req, res) => {
 
     let page = req.params.page
