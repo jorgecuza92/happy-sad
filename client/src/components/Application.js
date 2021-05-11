@@ -33,9 +33,9 @@ const addApp = () => {
     <div>
       <form action="#">
         <h3>Fill out the following:</h3>
-        <input type='text' placeholder='User Id' onChange={onChange} name='userId' />
-        <input type='text' placeholder='Company' onChange={onChange} name='company' />
-        <input type='text' placeholder='Job Title' onChange={onChange} name='title' />
+        <input type='text' placeholder='User Id' onChange={onChange} name='userId' required />
+        <input type='text' placeholder='Company' onChange={onChange} name='company' required />
+        <input type='text' placeholder='Job Title' onChange={onChange} name='title' required />
         <input type='checkbox' name='assessment' onChange={onChange} id='assessment'/>
           <label>Assessment</label>
         <input type='checkbox' onChange={onChange} name='interiew' />
