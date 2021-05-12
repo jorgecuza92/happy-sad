@@ -6,12 +6,72 @@ const { Op } = require('sequelize')
 var bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { sequelize } = require('./models');
+const mongoose = require("mongoose");
+const EmojiItem = require('./schemas/emoji')
+const User = require('./schemas/user')
+
 
 
 const app = express()
 
 app.use(express.json())
 app.use(cors())
+
+
+
+
+mongoose.connect(
+    "mongodb+srv://mikewarren:money@cluster0.k39ds.mongodb.net/happy-sad?retryWrites=true&w=majority",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    },
+    (error) => {
+      if (!error) {
+        console.log("Successfully connected to MongoDB");
+      } else {
+        console.log(error);
+      }
+    }
+  );
+
+
+app.post('/emoji-add', (req,res)=>{
+    const applicationId = req.body.app
+    const userId = req.body.userId
+    const grinning = req.body.grinning
+    const tada = req.body.tada
+    const heart = req.body.heart
+    const raised_hands = req.body.hands
+
+    
+
+    const application = new Application ({
+        application_id : applicationId,
+        raised_hands: raised_hands,
+        tada: tada,
+        heart: heart,
+        grinning: grinning
+    })
+
+
+    // var newUser = new User ({
+    //     id: userId
+    // })
+    // newUser.save()
+
+    // User.findOne({id: userId}, (error, user) => {
+    //     if (error){
+    //         res.json({error: 'Unable to find user'})
+    //     }else {
+    //         res.json({message: application})
+
+    //         user.application.push(application)
+    //         user.save()
+           
+    //     }
+    // })
+})
 
 
 
@@ -128,11 +188,51 @@ app.get('/emoji/:data', (req, res) => {
     })
 
     //Still need MongoDB database for user sending emoji
+  
+    let emojiChange = new EmojiItem ({
+
+        application_id: application,
+        [emoji]: true
+
+    })
+
+    
+    User.findOne({id: user, emojis: { $elemMatch: { application_id: application}
+       
+    }}, (error, user) => {
+    
+        if (error){
+        console.log(error)
+        }else {
+            
+            console.log(user)
+            
+            user.emojis.push(emojiChange)
+            user.save(error => {
+                if(error) {
+                    console.log({error: 'Unable to save user'})
+                } else {
+                    console.log({success: true, message: 'User has been saved!'})
+                }
+            })
+           
+        }
+    })
+       
+
+
+        
+
+    
+
+    
+
 
     res.json({life: 'continues'})
 
 
 })
+
 
 //Feeding the Main Page Feed
 app.get('/feed/:page', (req, res) => {
