@@ -187,49 +187,48 @@ app.get('/emoji/:data', (req, res) => {
         }
     })
 
-    //Still need MongoDB database for user sending emoji
-  
-    let emojiChange = new EmojiItem ({
-
+    //Update MongoDB database for user sending emoji
+    let emojiChange = {
         application_id: application,
         [emoji]: true
 
-    })
+    }
 
-    
-    User.findOne({id: user, emojis: { $elemMatch: { application_id: application}
-       
-    }}, (error, user) => {
-    
-        if (error){
-        console.log(error)
-        }else {
-            
-            console.log(user)
-            
-            user.emojis.push(emojiChange)
-            user.save(error => {
-                if(error) {
-                    console.log({error: 'Unable to save user'})
+    User.findOneAndUpdate(
+      { id: user, emojis: { $elemMatch: { application_id: application } } },
+      { $set: { [`emojis.$.${emoji}`]: true } },
+      { upsert: true, useFindAndModify: false },
+      (error, result) => {
+        if (!result) {
+          User.findOne({ id: user }, (error, user) => {
+            if (!user) {
+              var newUser = new User({
+                id: string[1],
+              });
+
+              newUser.emojis.push(emojiChange);
+              newUser.save();
+            } else {
+              user.emojis.push(emojiChange);
+              user.save((error) => {
+                if (error) {
+                  console.log({ error: "Unable to save emoji" });
                 } else {
-                    console.log({success: true, message: 'User has been saved!'})
+                  console.log({
+                    success: true,
+                    message: "Emoji has been saved!",
+                  });
                 }
-            })
-           
+              });
+            }
+          });
+        } else {
+          console.log(result);
         }
-    })
-       
-
-
-        
-
-    
-
-    
-
+      }
+    );
 
     res.json({life: 'continues'})
-
 
 })
 
