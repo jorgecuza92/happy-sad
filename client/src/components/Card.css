@@ -1,0 +1,13 @@
+.Card {
+  width: 300px;
+  height: 480px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 1px 10px 1px black;
+
+}
+
+
+.Card > img {
+  border-radius: 50%;
+}
