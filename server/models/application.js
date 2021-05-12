@@ -26,7 +26,9 @@ module.exports = (sequelize, DataTypes) => {
     raised_hands: DataTypes.INTEGER,
     heart: DataTypes.INTEGER,
     tada: DataTypes.INTEGER,
-    grinning: DataTypes.INTEGER
+    grinning: DataTypes.INTEGER,
+    username: DataTypes.STRING,
+    profileImage: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Application',

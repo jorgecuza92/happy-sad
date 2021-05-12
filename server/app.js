@@ -134,6 +134,7 @@ app.get('/emoji/:data', (req, res) => {
 
 })
 
+//Feeding the Main Page Feed
 app.get('/feed/:page', (req, res) => {
 
     let page = req.params.page
@@ -148,6 +149,47 @@ app.get('/feed/:page', (req, res) => {
         res.json(apps)
     })
 
+})
+
+//NEED TO ADD Authentication Check - Get user_id to input in request
+app.get('/search/:term', (req, res) => {
+    let term = req.params.term
+    let user_id = 2
+    
+
+    models.Application.findAll({
+        where: {
+            user_id: user_id,
+            [Op.or] : [
+                {title: {
+                    [Op.regexp]: term
+                }},
+                {company: {
+                    [Op.regexp]: term
+                }}
+            ]
+        }
+
+    }) .then(objects => {
+        res.json(objects)
+    })
+
+})
+
+
+//Get's top 5 users with most applications submitted
+app.get('/top', (req, res) => {
+
+    models.User.findAll({
+        //Only getting username and total_apps, we don't need password, email or other fields.
+        attributes: ['username', 'total_apps', 'profileImage'],
+        order: [
+            ['total_apps', 'DESC' ]
+        ],
+        limit: 5
+    }) .then(top => {
+        res.json(top)
+    })
 })
 
 
