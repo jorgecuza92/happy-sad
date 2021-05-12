@@ -35,23 +35,28 @@ app.post("/upload", (req, res) => {
     });
 });
 
-app.post('/update', (req, res) => {
-    let userId = req.body.userId
-    let url = req.body.theFileFromServer
-    let body = req.body
-    console.log(userId)
-    models.Application.update(
-        {
-          profileImage: sequelize.literal(url)
-        },
-        {
-          where: {
-            userId: userId,
-          },
-        }
-      );
-    res.json(body)
-})
+app.post("/update", (req, res) => {
+  let userId = req.body.userId;
+  let url = req.body.imageUpload;
+
+  console.log(url)
+  let body = req.body;
+  console.log(userId);
+  models.User.update(
+    {
+      profileImage: url,
+    },
+    {
+      where: {
+        id: userId,
+      },
+    }
+  ).then(updatedUser => {
+      console.log(updatedUser)
+  })
+
+  res.json(body);
+});
 
 app.get("/dashboard", (req, res) => {
   uploadImage(req, (photoURL) => {});
@@ -225,13 +230,108 @@ app.get("/emoji/:data", (req, res) => {
       },
     }
   );
+app.post('/app', (req, res) => {
+    let userid = req.body.userId
+    let company = req.body.company
+    let seeComp = req.body.seeComp
+    let jobTitle = req.body.title
+    let seeJob = req.body.seeJob
+    let date = Date.now()
+
+    let newApp = models.Application.build({
+        user_id: userid,
+        company: company,
+        title: jobTitle
+    })
+
+    newApp.save().then((savedApp) => {
+        res.json({
+            success: true
+        })
+    })
+
+
+})
+
+app.get('/emoji/:data', (req, res) => {
+    //http://localhost:8080/emoji/1,2,80,heart 1 is sender, 2, is user, 80 is application, heart is emoji
+    let data = req.params.data
+    let string = data.split(",")
+    //This is the User ID for the sender of the emoji
+    let sender = string[0]
+    //This is the User ID of the recipient
+    let user = string[1]
+    let application = string[2]
+    let emoji = string[3]
+
+    console.log(data)
+
+
+    //Updating the count in the Application Table
+    models.Application.update({
+        [emoji]: sequelize.literal(`${emoji} + 1`)
+    }, {
+        where: {
+            id: application
+        }
+    })
+
+    //update the count in the User Table
+    models.User.update({
+        [emoji]: sequelize.literal(`${emoji} + 1`)
+    }, {
+        where: {
+            id: user
+        }
+    })
+
+    //Update MongoDB database for user sending emoji
+    let emojiChange = {
+        application_id: application,
+        [emoji]: true
+
+    }
+
+    User.findOneAndUpdate(
+      { id: user, emojis: { $elemMatch: { application_id: application } } },
+      { $set: { [`emojis.$.${emoji}`]: true } },
+      { upsert: true, useFindAndModify: false },
+      (error, result) => {
+        if (!result) {
+          User.findOne({ id: user }, (error, user) => {
+            if (!user) {
+              var newUser = new User({
+                id: string[1],
+              });
+
+              newUser.emojis.push(emojiChange);
+              newUser.save();
+            } else {
+              user.emojis.push(emojiChange);
+              user.save((error) => {
+                if (error) {
+                  console.log({ error: "Unable to save emoji" });
+                } else {
+                  console.log({
+                    success: true,
+                    message: "Emoji has been saved!",
+                  });
+                }
+              });
+            }
+          });
+        } else {
+          console.log(result);
+        }
+      }
+    );
 
   //Still need MongoDB database for user sending emoji
 
-  let emojiChange = new EmojiItem({
-    application_id: application,
-    [emoji]: true,
-  });
+//   let emojiChange = new EmojiItem({
+//     application_id: application,
+//     [emoji]: true,
+//   });
 
   User.findOne(
     { id: user, emojis: { $elemMatch: { application_id: application } } },
@@ -252,6 +352,7 @@ app.get("/emoji/:data", (req, res) => {
       }
     }
   );
+})
 
   res.json({ life: "continues" });
 });

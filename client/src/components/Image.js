@@ -43,6 +43,7 @@ class Image extends Component {
 
   clickSave = () => {
     console.log('CLickSave triggered...')
+    
     console.log(this.state.theFileFromServer)
 
     let userId = 1

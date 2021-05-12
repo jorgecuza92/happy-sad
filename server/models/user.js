@@ -24,6 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     tada: DataTypes.INTEGER,
     grinning: DataTypes.INTEGER,
     total_apps: DataTypes.INTEGER,
+    profileImage: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'User',
