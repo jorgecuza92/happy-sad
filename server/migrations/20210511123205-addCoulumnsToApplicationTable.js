@@ -18,6 +18,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.removeCoulumn('Applications', 'raised_hands')
+    return queryInterface.removeColumn('Applications', 'raised_hands')
   }
 };
