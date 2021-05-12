@@ -197,27 +197,27 @@ app.get('/emoji/:data', (req, res) => {
     })
 
     
-    User.findOne({id: user, emojis: { $elemMatch: { application_id: application}
+    // User.findOne({id: user, emojis: { $elemMatch: { application_id: application}
        
-    }}, (error, user) => {
+    // }}, (error, user) => {
     
-        if (error){
-        console.log(error)
-        }else {
+    //     if (error){
+    //     console.log(error)
+    //     }else {
             
-            console.log(user)
+    //         console.log(user)
             
-            user.emojis.push(emojiChange)
-            user.save(error => {
-                if(error) {
-                    console.log({error: 'Unable to save user'})
-                } else {
-                    console.log({success: true, message: 'User has been saved!'})
-                }
-            })
+    //         user.emojis.push(emojiChange)
+    //         user.save(error => {
+    //             if(error) {
+    //                 console.log({error: 'Unable to save user'})
+    //             } else {
+    //                 console.log({success: true, message: 'User has been saved!'})
+    //             }
+    //         })
            
-        }
-    })
+    //     }
+    // })
        
 
 

@@ -20,14 +20,7 @@ class Feed extends Component {
       }
     }
 
-    likedToggle = () => {
-      if(this.props.likeAll===undefined){
-      this.setState ({
-        liked : !this.state.liked
-      })
-      this.props.updateLikes(this.state.liked,this.props.post)
-    }
-    }
+    
   
   
     fetchData = (pageNum) => {
@@ -74,6 +67,16 @@ class Feed extends Component {
 
 
 class Post extends Component {
+
+  likedToggle = () => {
+    // console.log('liked')
+    if(this.props.likeAll===undefined){
+    this.setState ({
+      liked : !this.state.liked
+    })
+    this.props.updateLikes(this.state.liked,this.props.post)
+  }
+  }
   
     render() {
     return (
@@ -88,17 +91,17 @@ class Post extends Component {
           </div>
           <div className="emojiBox">
             <div><img src={raised_hands} alt="" className="emoji" onClick={this.likedToggle}/></div>
-            <div><h5>{this.props.post.grinning}</h5></div>
+            <div><h5>{this.props.post.raised_hands}</h5></div>
             
           </div>
           <div className="emojiBox">
             <div><img src={heart} alt="" className="emoji" onClick={this.likedToggle}/></div>
-            <div><h5>{this.props.post.grinning}</h5></div>
+            <div><h5>{this.props.post.heart}</h5></div>
             
           </div>
           <div className="emojiBox">
             <div><img src={tada} alt="" className="emoji" onClick={this.likedToggle}/></div>
-            <div><h5>{this.props.post.grinning}</h5></div>
+            <div><h5>{this.props.post.tada}</h5></div>
             
           </div>
         
