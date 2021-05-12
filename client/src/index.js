@@ -10,6 +10,7 @@ import Register from './components/Registration';
 import Application from './components/Application';
 import Login from './components/Login';
 import { createBrowserHistory } from 'history';
+import Image from './components/Image';
 
 const history = createBrowserHistory();
 
@@ -24,6 +25,7 @@ ReactDOM.render(
         <Route exact path = '/login' component={Login} />
         <Route exact path = '/application' component={Application} />
         <Route exact path = '/' component={App} />
+        <Route exact path = '/dashboard' component={Image} />
     </Switch>
     </BaseLayout>
     </Router>
