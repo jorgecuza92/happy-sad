@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     heart: DataTypes.INTEGER,
     tada: DataTypes.INTEGER,
     grinning: DataTypes.INTEGER,
-    total_apps: DataTypes.INTEGER
+    total_apps: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'User',

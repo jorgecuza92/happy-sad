@@ -6,14 +6,29 @@ const { Op } = require('sequelize')
 var bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { sequelize } = require('./models');
-
+const formidable  = require('formidable');
 
 const app = express()
 
 app.use(express.json())
 app.use(cors())
 
+// static folder for images
+app.use('/uploads', express.static('uploads'))
 
+
+app.post('/upload', (req, res) => {
+    const profileImage = req.body.profileImage
+    console.log(req.body)
+    console.log(profileImage)
+    res.json({message: 'upload'})
+})
+
+app.get('/dashboard', (req,res) => {
+    uploadImage(req,(photoURL) => {
+
+    })
+}) 
 
 app.post('/register', (req, res) => {
     let username = req.body.username
@@ -47,6 +62,8 @@ app.post("/login", (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
 
+  console.log(req.body)
+
   models.User.findOne({
     where: {
       username: username,
@@ -70,7 +87,6 @@ app.post("/login", (req, res) => {
       res.json({ success: false, message: "User not found in database." });
     });
 });
-
 
 app.post('/app', (req, res) => {
     let userid = req.body.userId
