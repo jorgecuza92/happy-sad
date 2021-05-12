@@ -357,6 +357,32 @@ app.get('/emoji/:data', (req, res) => {
   res.json({ life: "continues" });
 });
 
+// Grabbing all Users applications
+app.get('/profile/:user', (req,res)=>{
+    let user = req.params.user
+
+    models.Application.findAll({
+        where: {user_id: user},  order: [
+            ['id', 'DESC']
+        ],
+    }).then(apps =>{
+        res.json(apps)
+    })
+})
+
+//Gets all user info
+app.get('/user/:id', (req,res)=>{
+    let user = req.params.id
+
+    models.User.findOne({
+        where: {id: user}
+    }).then(user =>{
+        res.json(user)
+    })
+
+})
+
+
 //Feeding the Main Page Feed
 app.get("/feed/:page", (req, res) => {
   let page = req.params.page;
