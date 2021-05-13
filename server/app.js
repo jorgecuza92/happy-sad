@@ -158,6 +158,12 @@ app.post("/login", (req, res) => {
     });
 });
 
+
+
+
+
+
+
 app.post("/app", (req, res) => {
   let userid = req.body.userId;
   let company = req.body.company;
@@ -224,7 +230,7 @@ app.post('/app', (req, res) => {
     let date = Date.now()
 
     let newApp = models.Application.build({
-        user_id: userid,
+        username: userid,
         company: company,
         title: jobTitle
     })
@@ -311,12 +317,7 @@ app.get('/emoji/:data', (req, res) => {
       }
     );
 
-  //Still need MongoDB database for user sending emoji
 
-//   let emojiChange = new EmojiItem({
-//     application_id: application,
-//     [emoji]: true,
-//   });
   
 })
 
@@ -324,12 +325,16 @@ app.get('/emoji/:data', (req, res) => {
  
 });
 
+
+
+
+
 // Grabbing all Users applications
 app.get('/profile/:user', (req,res)=>{
     let user = req.params.user
 
     models.Application.findAll({
-        where: {user_id: user},  order: [
+        where: {username: user},  order: [
             ['id', 'DESC']
         ],
     }).then(apps =>{
@@ -350,6 +355,7 @@ app.get('/user/:id', (req,res)=>{
 })
 
 
+
 //Feeding the Main Page Feed
 app.get("/feed/:page", (req, res) => {
   let page = req.params.page;
@@ -364,14 +370,56 @@ app.get("/feed/:page", (req, res) => {
   });
 });
 
+
+
+// Handle Rejections (DELETE & CREATE)
+app.post('/delete', (req,res)=>{
+    let id = req.body.id
+
+    models.Application.findOne({where : {id: id}})
+    .then((app)=>{
+    
+        let newApp = models.Application.build({
+            title: app.title,
+            company: app.company,
+            rejection : 1,
+            username : app.username,
+            user_id: app.user_id,
+            raised_hands: app.raised_hands,
+            heart: app.heart,
+            tada: app.tada,
+            grinning: app.grinning,
+            profileImage: app.profileImage
+
+        })
+
+        newApp.save().then((result)=>{
+            if(result){
+                models.Application.destroy({where: {id:id}})
+                res.json(result)
+            } else {
+                console.log("Error")
+            }
+        })
+    
+    })
+    
+})
+
+
 //NEED TO ADD Authentication Check - Get user_id to input in request
 app.get("/search/:term", (req, res) => {
-  let term = req.params.term;
-  let user_id = 2;
-
+     //http://localhost:8080/search/1,2 1 is term, 2, is user
+     let data = req.params.term
+     let string = data.split(",")
+ 
+     let term = string[0]
+  
+     let username = string[1]
+  
   models.Application.findAll({
     where: {
-      user_id: user_id,
+      username: username,
       [Op.or]: [
         {
           title: {
