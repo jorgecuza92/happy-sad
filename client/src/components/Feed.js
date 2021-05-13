@@ -80,64 +80,199 @@ class Post extends Component {
   }
   
     render() {
-      let url = "http://localhost:8080/emoji/" + "1," + `${this.props.post.user_id}` + "," + `${this.props.post.id}` + "," 
+ 
+      
+
+
+      if(this.props.post.rejection) {
+        return (
+
+         
+          <div className="postDiv">
+             <h1>Reject</h1>
+            <div className="userProfile">
+              <Avatar alt="Remy Sharp" src="http://thenewcode.com/assets/images/thumbnails/sarah-parmenter.jpeg" />
+              {this.props.post.username} was rejected from {this.props.post.company} for the {this.props.post.title} possiton
+            </div>
+            <div style={{fontSize:'10pt'}}></div>
+            <p style={{fontSize:'10pt'}}></p>
+            
+            <EmojiTime post={this.props.post} />
+          
+          </div>
+        )
+      }
+      else if (this.props.post.see_title && this.props.post.see_company) {
+        return (
+          <div className="postDiv">
+            <h1>show applied</h1>
+            <div className="userProfile">
+              <Avatar alt="Remy Sharp" src="http://thenewcode.com/assets/images/thumbnails/sarah-parmenter.jpeg" />
+              {this.props.post.username} has applied for a job
+            </div>
+          
+            <EmojiTime post={this.props.post} />
+          
+          </div>
+        )
+ 
+      } 
+      else if (this.props.post.see_title) {
+        return (
+          <div className="postDiv">
+            <h1>show only company</h1>
+            <div className="userProfile">
+              <Avatar alt="Remy Sharp" src="http://thenewcode.com/assets/images/thumbnails/sarah-parmenter.jpeg" />
+              {this.props.post.username} has applied at {this.props.post.company}
+            </div>
+           
+            <p style={{fontSize:'10pt'}}></p>
+ 
+            <EmojiTime post={this.props.post} />
+          
+          </div>
+        )
+      } 
+      else if (this.props.post.see_company) {
+        return (
+          <div className="postDiv">
+            <h1>show only title</h1>
+            <div className="userProfile">
+              <Avatar alt="Remy Sharp" src="http://thenewcode.com/assets/images/thumbnails/sarah-parmenter.jpeg" />
+              {this.props.post.username} applied for {this.props.post.title} possition
+            </div>
+          
+            <EmojiTime post={this.props.post} />
+          
+          </div>
+        )
+      } 
+      else {
+        return (
+          <div className="postDiv">
+            regular
+            <div className="userProfile">
+              <Avatar alt="Remy Sharp" src="http://thenewcode.com/assets/images/thumbnails/sarah-parmenter.jpeg" />
+              {this.props.post.username}
+            </div>
+            <div style={{fontSize:'10pt'}}>{this.props.post.title}</div>
+            <p style={{fontSize:'10pt'}}>{this.props.post.company}</p>
+
+            <EmojiTime post={this.props.post} />
+          
+          </div>
+        )
+      }
+
+  
+  }
+}
+
+
+class EmojiTime extends Component {
+
+  constructor  (props) {
+     super(props)
+     this.state = {
+       grinning: this.props.post.grinning,
+       tada:this.props.post.tada,
+       heart: this.props.post.heart,
+       raised_hands: this.props.post.raised_hands
+     }
+  }
+  
+
+  clickGrin = (emojiURL) => {
+    fetch(emojiURL)
+    this.setState ({
+      ...this.state,
+      grinning: this.state.grinning + 1
+      
+    })
+
+  }
+
+  clickHeart = (emojiURL) => {
+    fetch(emojiURL)
+    this.setState ({
+      ...this.state,
+      heart: this.state.heart + 1
+      
+    })
+
+  }
+  clickTada = (emojiURL) => {
+    fetch(emojiURL)
+    this.setState ({
+      ...this.state,
+      tada: this.state.tada + 1
+      
+    })
+
+  }
+  clickRaise = (emojiURL) => {
+    fetch(emojiURL)
+    this.setState ({
+      ...this.state,
+      raised_hands: this.state.raised_hands + 1
+      
+    })
+
+  }
+
+  render () {
+  let url = "http://localhost:8080/emoji/" + "1," + `${this.props.post.user_id}` + "," + `${this.props.post.id}` + "," 
       let eg = url + "grinning"
       let erh = url + "raised_hands"
       let eh = url + "heart"
       let et = url + "tada"
+    
+      return (
 
-    return (
-      <div className="postDiv">
-        <div className="userProfile">
-          <Avatar alt="Remy Sharp" src="http://thenewcode.com/assets/images/thumbnails/sarah-parmenter.jpeg" />
-          {this.props.post.username}
-        </div>
-        <div style={{fontSize:'10pt'}}>{this.props.post.title}</div>
-        <p style={{fontSize:'10pt'}}>{this.props.post.company}</p>
-        <div className="emojiContainer">
-          <div className="emojiBox">
-            <div>
-              <a href={eg}>
-              <img src={grinning} alt="" className="emoji" />
-              </a>
-          </div>
-            <div><h5>{this.props.post.grinning}</h5></div>
-            
-          </div>
-          <div className="emojiBox">
-            <div>
-              <a href={erh}>
-              <img src={raised_hands} alt="" className="emoji" />
-              </a>
-            </div>
-            <div><h5>{this.props.post.raised_hands}</h5></div>
-            
-          </div>
-          <div className="emojiBox">
-            <div>
-              <a href={eh}>
-              <img src={heart} alt="" className="emoji" />
-              </a>
+
+<div className="emojiContainer">
+              <div className="emojiBox">
+                <div>
+                 
+                  <img src={grinning} alt="" className="emoji" onClick={() => this.clickGrin(eg)}/>
+             
               </div>
-            <div><h5>{this.props.post.heart}</h5></div>
+                <div><h5>{this.state.grinning}</h5></div>
+                
+              </div>
+              <div className="emojiBox">
+                <div>
+               
+                  <img src={raised_hands} alt="" className="emoji" onClick={() => this.clickRaise(erh)}/>
+ 
+                </div>
+                <div><h5>{this.props.post.raised_hands}</h5></div>
+                
+              </div>
+              <div className="emojiBox">
+                <div>
+               
+                  <img src={heart} alt="" className="emoji" onClick={() => this.clickHeart(eh)}/>
+               
+                  </div>
+                <div><h5>{this.props.post.heart}</h5></div>
+                
+              </div>
+              <div className="emojiBox">
+               
+                <div>
+                  <img src={tada} alt="" className="emoji" onClick={() => this.clickTada(et)}/>
+                </div>
+               
+                <div><h5>{this.props.post.tada}</h5></div>
+                
+              </div>
             
-          </div>
-          <div className="emojiBox">
-            <a href={et}>
-            <div>
-              <img src={tada} alt="" className="emoji" />
+            
+            
             </div>
-            </a>
-            <div><h5>{this.props.post.tada}</h5></div>
-            
-          </div>
-        
-        
-        
-        </div>
-      
-      </div>
-    )
-  }
-}
+      )
+}}
+
+
 export default Feed;
