@@ -13,8 +13,11 @@ function Card(props) {
 
 
   const fetchAllStats = () => {
+
     const token = localStorage.getItem('jsonwebtoken')
-    fetch(`http://localhost:8080/user/2`, {
+    const id = localStorage.getItem('id')
+
+    fetch(`http://localhost:8080/user/${id}`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`
@@ -22,20 +25,21 @@ function Card(props) {
     })
     .then(response => response.json())
     .then(user => {
+        localStorage.setItem('id', user.id)
         console.log(user)
         setUser(user)
     })
   }
 
   
-  const profileURL = URL.createObjectURL(`${user.profileImage}`)
+  // const profileURL = URL.createObjectURL(`${user.profileImage}`)
   
     return (
         <div>
           <div className="Card">
             <div className="upperContainer">
               <div className="imageContainer">
-                <img src={user.profileImage} alt="" height="170px" width="170px" />
+                <img src={user.profileImage} alt="profileImage" height="170px" width="170px" />
               </div>
             </div>
             <div className="statsContainer">
@@ -45,6 +49,9 @@ function Card(props) {
                 <h4>Heart: 💛 {user.heart}</h4>
                 <h4>Tada: 🎉  {user.tada}</h4>
                 <h4>Grinning: 😊  {user.grinning}</h4>
+              </div>
+              <div className="totalAppsContainer">
+                
               </div>
             </div>
           </div>

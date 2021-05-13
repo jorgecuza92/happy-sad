@@ -122,6 +122,7 @@ class Post extends Component {
               <Avatar alt="Remy Sharp" src={this.props.post.profileImage} />
               <div className="username"><span >{this.props.post.username} </span> </div>
             </div>
+            <div className='fadedLine'></div>
             <div className="userFeed"> Applied at <strong>{this.props.post.company}</strong> company</div>
     
             <EmojiTime post={this.props.post} />

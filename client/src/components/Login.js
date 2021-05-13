@@ -13,7 +13,7 @@ function Login(props) {
     });
   };
 
-  const handleLogin = () => {
+  const handleLogin = (id) => {
     fetch("http://localhost:8080/login", {
       method: "POST",
       headers: {
@@ -28,7 +28,8 @@ function Login(props) {
           // get the token and place in local storage
           localStorage.setItem("jsonwebtoken", token);
           localStorage.setItem("username", result.username);
-          // take user to the dashboard (dont have dashboard route yet)
+          localStorage.setItem('id', result.userId)
+          // take user to the dashboard 
           props.history.push("/profile");
         }
       });
