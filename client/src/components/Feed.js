@@ -4,6 +4,7 @@ import grinning from '../img/grinning.png';
 import heart from '../img/heart.png';
 import raised_hands from '../img/raised_hands.png';
 import tada from '../img/tada.png';
+import Avatar from '@material-ui/core/Avatar';
 
 
 
@@ -79,28 +80,54 @@ class Post extends Component {
   }
   
     render() {
+      let url = "http://localhost:8080/emoji/" + "1," + `${this.props.post.user_id}` + "," + `${this.props.post.id}` + "," 
+      let eg = url + "grinning"
+      let erh = url + "raised_hands"
+      let eh = url + "heart"
+      let et = url + "tada"
+
     return (
       <div className="postDiv">
+        <div className="userProfile">
+          <Avatar alt="Remy Sharp" src="http://thenewcode.com/assets/images/thumbnails/sarah-parmenter.jpeg" />
+          {this.props.post.username}
+        </div>
         <div style={{fontSize:'10pt'}}>{this.props.post.title}</div>
         <p style={{fontSize:'10pt'}}>{this.props.post.company}</p>
         <div className="emojiContainer">
           <div className="emojiBox">
-            <div><img src={grinning} alt="" className="emoji" onClick={this.likedToggle}/></div>
+            <div>
+              <a href={eg}>
+              <img src={grinning} alt="" className="emoji" />
+              </a>
+          </div>
             <div><h5>{this.props.post.grinning}</h5></div>
             
           </div>
           <div className="emojiBox">
-            <div><img src={raised_hands} alt="" className="emoji" onClick={this.likedToggle}/></div>
+            <div>
+              <a href={erh}>
+              <img src={raised_hands} alt="" className="emoji" />
+              </a>
+            </div>
             <div><h5>{this.props.post.raised_hands}</h5></div>
             
           </div>
           <div className="emojiBox">
-            <div><img src={heart} alt="" className="emoji" onClick={this.likedToggle}/></div>
+            <div>
+              <a href={eh}>
+              <img src={heart} alt="" className="emoji" />
+              </a>
+              </div>
             <div><h5>{this.props.post.heart}</h5></div>
             
           </div>
           <div className="emojiBox">
-            <div><img src={tada} alt="" className="emoji" onClick={this.likedToggle}/></div>
+            <a href={et}>
+            <div>
+              <img src={tada} alt="" className="emoji" />
+            </div>
+            </a>
             <div><h5>{this.props.post.tada}</h5></div>
             
           </div>
