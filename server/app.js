@@ -277,6 +277,7 @@ app.get('/emoji/:data', (req, res) => {
 
     }
 
+
     User.findOneAndUpdate(
       { id: user, emojis: { $elemMatch: { application_id: application } } },
       { $set: { [`emojis.$.${emoji}`]: true } },

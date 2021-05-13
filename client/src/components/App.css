@@ -62,7 +62,7 @@
 }
 
 .emojiBox {
-  border: 1px solid black;
+  box-shadow: 0px 10px 53px 0px rgba(0, 0, 0, 0.3);
   min-width: 50px;
   display: flex;
   flex-direction: row;
