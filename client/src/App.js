@@ -16,9 +16,12 @@ function App() {
     return (
       <div className="App">
        <h1>Succeed At Failing</h1>
+       <div className="app_body">
        <Application />
        <Feed />
        <Register />
+       </div>
+       
       </div>
     );
   }

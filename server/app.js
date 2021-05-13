@@ -95,22 +95,7 @@ app.post("/emoji-add", (req, res) => {
     grinning: grinning,
   });
 
-  // var newUser = new User ({
-  //     id: userId
-  // })
-  // newUser.save()
-
-  // User.findOne({id: userId}, (error, user) => {
-  //     if (error){
-  //         res.json({error: 'Unable to find user'})
-  //     }else {
-  //         res.json({message: application})
-
-  //         user.application.push(application)
-  //         user.save()
-
-  //     }
-  // })
+  
 });
 
 app.post("/register", (req, res) => {
@@ -294,6 +279,7 @@ app.get('/emoji/:data', (req, res) => {
 
     }
 
+
     User.findOneAndUpdate(
       { id: user, emojis: { $elemMatch: { application_id: application } } },
       { $set: { [`emojis.$.${emoji}`]: true } },
@@ -334,29 +320,11 @@ app.get('/emoji/:data', (req, res) => {
 //     application_id: application,
 //     [emoji]: true,
 //   });
-
-  User.findOne(
-    { id: user, emojis: { $elemMatch: { application_id: application } } },
-    (error, user) => {
-      if (error) {
-        console.log(error);
-      } else {
-        console.log(user);
-
-        user.emojis.push(emojiChange);
-        user.save((error) => {
-          if (error) {
-            console.log({ error: "Unable to save user" });
-          } else {
-            console.log({ success: true, message: "User has been saved!" });
-          }
-        });
-      }
-    }
-  );
+  
 })
 
-  res.json({ life: "continues" });
+    res.json({ life: "continues" });
+ 
 });
 
 // Grabbing all Users applications
