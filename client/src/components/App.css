@@ -44,6 +44,7 @@
   justify-content: center;
   margin: 20px;
   box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
 }
 
 .postDivContainer {
@@ -62,7 +63,7 @@
 }
 
 .emojiBox {
-  border: 1px solid black;
+  box-shadow: 0px 10px 53px 0px rgba(0, 0, 0, 0.3);
   min-width: 50px;
   display: flex;
   flex-direction: row;
@@ -81,3 +82,21 @@
   
 }
 
+.userProfile {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  align-items: center;
+}
+
+.username {
+  
+  top: 110px;
+  font-weight: 400;
+  font-size: medium;
+}
+
+.userFeed {
+  padding: 40px;
+  border-top-style: outset;
+}

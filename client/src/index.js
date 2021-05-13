@@ -11,7 +11,11 @@ import Application from './components/Application';
 import Login from './components/Login';
 import { createBrowserHistory } from 'history';
 import Image from './components/Image';
+<<<<<<< HEAD
 import Apptracker from './components/appTracker';
+=======
+import ProfilePage from './components/ProfilePage';
+>>>>>>> fc70bc3148c4ff752979a2382c23a1d3e29a11a2
 
 const history = createBrowserHistory();
 
@@ -28,7 +32,8 @@ ReactDOM.render(
         <Route exact path = '/app-track' component={Apptracker} />
         
         <Route exact path = '/' component={App} />
-        <Route exact path = '/dashboard' component={Image} />
+        <Route exact path = '/upload' component={Image} />
+        <Route exact path = '/profile' component={ProfilePage} />
     </Switch>
     </BaseLayout>
     </Router>
