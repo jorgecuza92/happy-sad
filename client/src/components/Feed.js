@@ -89,13 +89,11 @@ class Post extends Component {
 
          
           <div className="postDiv">
-             <h1>Reject</h1>
             <div className="userProfile">
-              <Avatar alt="Remy Sharp" src="http://thenewcode.com/assets/images/thumbnails/sarah-parmenter.jpeg" />
-              {this.props.post.username} was rejected from {this.props.post.company} for the {this.props.post.title} possiton
+              <Avatar alt="Remy Sharp" src={this.props.post.profileImage} />
+              <div className="username"><span >{this.props.post.username} </span> </div> 
             </div>
-            <div style={{fontSize:'10pt'}}></div>
-            <p style={{fontSize:'10pt'}}></p>
+            <div className="userFeed"><label>was rejected from <strong>{this.props.post.company}</strong> for the <strong>{this.props.post.title}</strong> possiton</label></div>
             
             <EmojiTime post={this.props.post} />
           
@@ -105,11 +103,11 @@ class Post extends Component {
       else if (this.props.post.see_title && this.props.post.see_company) {
         return (
           <div className="postDiv">
-            <h1>show applied</h1>
             <div className="userProfile">
-              <Avatar alt="Remy Sharp" src="http://thenewcode.com/assets/images/thumbnails/sarah-parmenter.jpeg" />
-              {this.props.post.username} has applied for a job
+              <Avatar alt="Remy Sharp" src={this.props.post.profileImage} />
+              <div className="username"><span >{this.props.post.username} </span> </div>
             </div>
+              <div className="userFeed"><label><strong>Applied for a job</strong></label></div>
           
             <EmojiTime post={this.props.post} />
           
@@ -120,14 +118,12 @@ class Post extends Component {
       else if (this.props.post.see_title) {
         return (
           <div className="postDiv">
-            <h1>show only company</h1>
             <div className="userProfile">
-              <Avatar alt="Remy Sharp" src="http://thenewcode.com/assets/images/thumbnails/sarah-parmenter.jpeg" />
-              {this.props.post.username} has applied at {this.props.post.company}
+              <Avatar alt="Remy Sharp" src={this.props.post.profileImage} />
+              <div className="username"><span >{this.props.post.username} </span> </div>
             </div>
-           
-            <p style={{fontSize:'10pt'}}></p>
- 
+            <div className="userFeed"> Applied at <strong>{this.props.post.company}</strong> company</div>
+    
             <EmojiTime post={this.props.post} />
           
           </div>
@@ -136,12 +132,11 @@ class Post extends Component {
       else if (this.props.post.see_company) {
         return (
           <div className="postDiv">
-            <h1>show only title</h1>
             <div className="userProfile">
-              <Avatar alt="Remy Sharp" src="http://thenewcode.com/assets/images/thumbnails/sarah-parmenter.jpeg" />
-              {this.props.post.username} applied for {this.props.post.title} possition
+              <Avatar alt="Remy Sharp" src={this.props.post.profileImage} />
+              <div className="username"><span >{this.props.post.username} </span> </div>
             </div>
-          
+            <div className="userFeed">Applied for <strong>{this.props.post.title}</strong> possition</div>
             <EmojiTime post={this.props.post} />
           
           </div>
@@ -150,14 +145,13 @@ class Post extends Component {
       else {
         return (
           <div className="postDiv">
-            regular
             <div className="userProfile">
-              <Avatar alt="Remy Sharp" src="http://thenewcode.com/assets/images/thumbnails/sarah-parmenter.jpeg" />
-              {this.props.post.username}
+              <Avatar alt="Remy Sharp" src={this.props.post.profileImage} />
+              <div className="username"><span >{this.props.post.username} </span> </div>
             </div>
-            <div style={{fontSize:'10pt'}}>{this.props.post.title}</div>
-            <p style={{fontSize:'10pt'}}>{this.props.post.company}</p>
-
+            <div className="userFeed"><strong>{this.props.post.title}</strong>
+            <p><strong>{this.props.post.company}</strong></p>
+            </div>
             <EmojiTime post={this.props.post} />
           
           </div>
