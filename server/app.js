@@ -10,6 +10,8 @@ const mongoose = require("mongoose");
 const EmojiItem = require("./schemas/emoji");
 const User = require("./schemas/user");
 const { v4: uuidv4 } = require("uuid");
+const { nextTick } = require("node:process");
+const user = require("./models/user");
 
 const app = express();
 
@@ -372,13 +374,50 @@ app.get('/profile/:user', (req,res)=>{
 
 //Gets all user info
 app.get('/user/:id', (req,res)=>{
+    
     let user = req.params.id
 
-    models.User.findOne({
-        where: {id: user}
-    }).then(user =>{
-        res.json(user)
-    })
+    const headers = req.headers
+    if(headers) {
+      const authorization = headers['authorization']
+      if(authorization) {
+        const token = authorization.split(' ')[1]
+        const decoded = jwt.verify(token, 'KRABBYPATTYFORMULA')
+        console.log(decoded)
+        if(decoded) {
+          const username = decoded.username
+          console.log(user)
+          models.User.findOne({
+            where: {
+              id: user,
+              username: username
+            }
+          }).then((user) => {
+              res.json(user)
+
+            // if(user) {
+            //   next()
+    
+            //   models.User.findOne({
+            //       where: {id: user}
+            //   }).then(user =>{
+            //       res.json(user)
+            //   })
+            // }
+          })
+          // const authUser = users.find(user => user.username == username)
+          // console.log(authUser)
+          // if(authUser) {
+          // }
+        } else {
+          res.json({error: 'Unable to authenticate'})
+        }
+      } else {
+        res.json({error: 'Unable to authenticate'})
+      }
+    } else {
+      res.json({error: 'error in headers'})
+    }
 
 })
 

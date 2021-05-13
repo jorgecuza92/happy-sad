@@ -29,7 +29,7 @@ function Login(props) {
           localStorage.setItem("jsonwebtoken", token);
           localStorage.setItem("username", result.username);
           // take user to the dashboard (dont have dashboard route yet)
-          props.history.push("/");
+          props.history.push("/profile");
         }
       });
   };

@@ -9,5 +9,11 @@
 
 
 .Card > img {
-  border-radius: 50%;
+  /* border-radius: 50%; */
+}
+
+.emojiStatsContainer {
+  display: flex;
+  flex-direction: row;
+  text-align-last: center;
 }

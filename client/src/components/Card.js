@@ -1,42 +1,58 @@
-import React, { useState } from 'react';
-import './Card.css'
+import React, { useState } from "react";
+import { Component } from "react";
+import "./Card.css";
 import {useEffect} from 'react'
 
+function Card(props) {
+
+  const [user, setUser] = useState({})
+  
+  useEffect(() => {
+    fetchAllStats()
+  },[])
 
 
-function Card() {
-
-  const [user, setUser] = useState('Your Username')
-  const [application, setApplication] = useState({})
-  const [emoji, setEmoji] = useState('15, 11, 12, 4')
-
-  const viewStats = () => {
-
-    fetch('http://localhost:8080/app', {
+  const fetchAllStats = () => {
+    const token = localStorage.getItem('jsonwebtoken')
+    fetch(`http://localhost:8080/user/2`, {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        userId: application.userId,
-      })
+        'Authorization': `Bearer ${token}`
+      }
     })
+    .then(response => response.json())
+    .then(user => {
+        console.log(user)
+        setUser(user)
+    })
+  }
 
-  return (
-    <div className="Card">
-      <div className="upperContainer">
-        <div className="imageContainer">
-          <img src="" alt="" height='170px' width='170px' />
+  
+  const profileURL = URL.createObjectURL(`${user.profileImage}`)
+  
+    return (
+        <div>
+          <div className="Card">
+            <div className="upperContainer">
+              <div className="imageContainer">
+                <img src={user.profileImage} alt="" height="170px" width="170px" />
+              </div>
+            </div>
+            <div className="statsContainer">
+              <h3> {user.username}'s stats: </h3>
+              <div className='emojiStatsContainer'><br></br>
+                <h4>Raised Hands: 🙌  {user.raised_hands}</h4>
+                <h4>Heart: 💛 {user.heart}</h4>
+                <h4>Tada: 🎉  {user.tada}</h4>
+                <h4>Grinning: 😊  {user.grinning}</h4>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div className="statsContainer">
-        <h3> {this.body.userId} </h3>
-        <h3> {applications} </h3>
-        <h3> {emoji} </h3>
-      </div>
-    </div>
-  )
-}
+      );
+
 }
 
-export default Card
+
+
+export default Card;
