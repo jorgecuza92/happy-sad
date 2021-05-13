@@ -8,6 +8,7 @@ import Feed from './components/Feed'
 
 import 'semantic-ui-css/semantic.min.css';
 import './components/App.css';
+import ProfilePage from './components/ProfilePage';
 
 
 function App() {
