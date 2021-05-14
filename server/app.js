@@ -10,6 +10,8 @@ const mongoose = require("mongoose");
 const EmojiItem = require("./schemas/emoji");
 const User = require("./schemas/user");
 const { v4: uuidv4 } = require("uuid");
+// const { nextTick } = require("node:process");
+const user = require("./models/user");
 
 const app = express();
 
@@ -158,6 +160,12 @@ app.post("/login", (req, res) => {
     });
 });
 
+
+
+
+
+
+
 app.post("/app", (req, res) => {
   let userid = req.body.userId;
   let company = req.body.company;
@@ -179,42 +187,7 @@ app.post("/app", (req, res) => {
   });
 });
 
-app.get("/emoji/:data", (req, res) => {
-  //http://localhost:8080/emoji/1,2,80,heart 1 is sender, 2, is user, 80 is application, heart is emoji
-  let data = req.params.data;
-  let string = data.split(",");
-  //This is the User ID for the sender of the emoji
-  let sender = string[0];
-  //This is the User ID of the recipient
-  let user = string[1];
-  let application = string[2];
-  let emoji = string[3];
 
-  console.log(data);
-
-  //Updating the count in the Application Table
-  models.Application.update(
-    {
-      [emoji]: sequelize.literal(`${emoji} + 1`),
-    },
-    {
-      where: {
-        id: application,
-      },
-    }
-  );
-
-  //update the count in the User Table
-  models.User.update(
-    {
-      [emoji]: sequelize.literal(`${emoji} + 1`),
-    },
-    {
-      where: {
-        id: user,
-      },
-    }
-  );
 app.post('/app', (req, res) => {
     let userid = req.body.userId
     let company = req.body.company
@@ -224,7 +197,7 @@ app.post('/app', (req, res) => {
     let date = Date.now()
 
     let newApp = models.Application.build({
-        user_id: userid,
+        username: userid,
         company: company,
         title: jobTitle
     })
@@ -312,25 +285,20 @@ app.get('/emoji/:data', (req, res) => {
       }
     );
 
-  //Still need MongoDB database for user sending emoji
-
-//   let emojiChange = new EmojiItem({
-//     application_id: application,
-//     [emoji]: true,
-//   });
+res.json({ life: "continues" });
   
 })
 
-    res.json({ life: "continues" });
- 
-});
+
+
+
 
 // Grabbing all Users applications
 app.get('/profile/:user', (req,res)=>{
     let user = req.params.user
 
     models.Application.findAll({
-        where: {user_id: user},  order: [
+        where: {username: user},  order: [
             ['id', 'DESC']
         ],
     }).then(apps =>{
@@ -340,15 +308,53 @@ app.get('/profile/:user', (req,res)=>{
 
 //Gets all user info
 app.get('/user/:id', (req,res)=>{
+    
     let user = req.params.id
 
-    models.User.findOne({
-        where: {id: user}
-    }).then(user =>{
-        res.json(user)
-    })
+    const headers = req.headers
+    if(headers) {
+      const authorization = headers['authorization']
+      if(authorization) {
+        const token = authorization.split(' ')[1]
+        const decoded = jwt.verify(token, 'KRABBYPATTYFORMULA')
+        console.log(decoded)
+        if(decoded) {
+          const username = decoded.username
+          console.log(user)
+          models.User.findOne({
+            where: {
+              id: user,
+              username: username
+            }
+          }).then((user) => {
+              res.json(user)
+
+            // if(user) {
+            //   next()
+    
+            //   models.User.findOne({
+            //       where: {id: user}
+            //   }).then(user =>{
+            //       res.json(user)
+            //   })
+            // }
+          })
+          // const authUser = users.find(user => user.username == username)
+          // console.log(authUser)
+          // if(authUser) {
+          // }
+        } else {
+          res.json({error: 'Unable to authenticate'})
+        }
+      } else {
+        res.json({error: 'Unable to authenticate'})
+      }
+    } else {
+      res.json({error: 'error in headers'})
+    }
 
 })
+
 
 
 //Feeding the Main Page Feed
@@ -365,14 +371,56 @@ app.get("/feed/:page", (req, res) => {
   });
 });
 
+
+
+// Handle Rejections (DELETE & CREATE)
+app.post('/delete', (req,res)=>{
+    let id = req.body.id
+
+    models.Application.findOne({where : {id: id}})
+    .then((app)=>{
+    
+        let newApp = models.Application.build({
+            title: app.title,
+            company: app.company,
+            rejection : 1,
+            username : app.username,
+            user_id: app.user_id,
+            raised_hands: app.raised_hands,
+            heart: app.heart,
+            tada: app.tada,
+            grinning: app.grinning,
+            profileImage: app.profileImage
+
+        })
+
+        newApp.save().then((result)=>{
+            if(result){
+                models.Application.destroy({where: {id:id}})
+                res.json(result)
+            } else {
+                console.log("Error")
+            }
+        })
+    
+    })
+    
+})
+
+
 //NEED TO ADD Authentication Check - Get user_id to input in request
 app.get("/search/:term", (req, res) => {
-  let term = req.params.term;
-  let user_id = 2;
-
+     //http://localhost:8080/search/1,2 1 is term, 2, is user
+     let data = req.params.term
+     let string = data.split(",")
+ 
+     let term = string[0]
+  
+     let username = string[1]
+  
   models.Application.findAll({
     where: {
-      user_id: user_id,
+      username: username,
       [Op.or]: [
         {
           title: {

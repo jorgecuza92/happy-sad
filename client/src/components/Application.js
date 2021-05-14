@@ -13,14 +13,14 @@ const onChange = (e) => {
 }
 
 const addApp = () => {
-
+const user = localStorage.getItem('username')
   fetch('http://localhost:8080/app', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      userId: application.userId,
+      userId: user,
       company: application.company,
       title: application.title,
     })
