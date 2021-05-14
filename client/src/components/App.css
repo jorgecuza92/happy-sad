@@ -100,3 +100,9 @@
   padding: 40px;
   border-top-style: outset;
 }
+
+
+.haha {
+  display: flex;
+  justify-content: space-between;
+}

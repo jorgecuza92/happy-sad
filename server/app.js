@@ -383,7 +383,7 @@ app.post('/delete', (req,res)=>{
         let newApp = models.Application.build({
             title: app.title,
             company: app.company,
-            rejection : 1,
+            rejection : true,
             username : app.username,
             user_id: app.user_id,
             raised_hands: app.raised_hands,
@@ -408,39 +408,42 @@ app.post('/delete', (req,res)=>{
 })
 
 
-// Handle Interviews (DELETE & CREATE)
+// Handle Interviews 
 app.post('/interview', (req,res)=>{
   let id = req.body.id
 
-    models.Application.findOne({where : {id: id}})
-    .then((app)=>{
-    
-        let newApp = models.Application.build({
-            title: app.title,
-            company: app.company,
-            interview : 1,
-            username : app.username,
-            user_id: app.user_id,
-            raised_hands: app.raised_hands,
-            heart: app.heart,
-            tada: app.tada,
-            grinning: app.grinning,
-            profileImage: app.profileImage
-
-        })
-
-        newApp.save().then((result)=>{
-            if(result){
-                models.Application.destroy({where: {id:id}})
-                res.json(result)
-            } else {
-                console.log("Error")
-            }
-        })
-    
+    models.Application.update({
+      interview: true
+    }, {where:{id:id}}).then(updatedApp =>{
+      
+      res.json(updatedApp)
     })
     
 })
+
+app.post('/assessment', (req,res)=>{
+  let id = req.body.id
+
+    models.Application.update({
+      assessment: true
+    }, {where:{id:id}}).then(updatedApp =>{
+      res.json(updatedApp)
+    })
+    
+})
+
+app.post('/hide', (req,res)=>{
+  let id = req.body.id
+
+    models.Application.update({
+      hide_application: true
+    }, {where:{id:id}}).then(updatedApp =>{
+      
+      res.json(updatedApp)
+    })
+    
+})
+
 
 //NEED TO ADD Authentication Check - Get user_id to input in request
 app.get("/search/:term", (req, res) => {
