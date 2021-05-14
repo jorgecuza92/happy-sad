@@ -10,16 +10,16 @@ import 'semantic-ui-css/semantic.min.css';
 import './components/App.css';
 import ProfilePage from './components/ProfilePage';
 
+import Navbar from './components/Navbar/Navbar';
 
 function App() {
 
     return (
       <div className="App">
-       <h1>Succeed At Failing</h1>
+        <Navbar />
+       
        <div className="app_body">
-       <Application />
        <Feed />
-       <Register />
        </div>
        
       </div>
