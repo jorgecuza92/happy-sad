@@ -56,6 +56,27 @@ function Apptracker(props){
             body: JSON.stringify({
                 id: id
             })
+        }).then(response => fetchAllApps())
+        // .then(result =>{
+        //     if (result){
+        //         fetchAllApps();
+        //     } else {
+        //         console.log('error')
+        //     }
+        // })
+    }
+
+
+    const handleInt = (e) =>{
+        const id = e.target.name
+        fetch('http://localhost:8080/interview/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: id
+            })
         }).then(response => response.json())
         .then(result =>{
             if (result){
@@ -78,6 +99,8 @@ function Apptracker(props){
         <div style={{fontSize:'10pt'}}>{app.title}</div>
         <p style={{fontSize:'10pt'}}>{app.company}</p>
         <button onClick={handleDel} name={app.id} >Rejection</button>
+        <button onClick={handleInt} name={app.id} >Interview </button>
+
         </div>
         }
        

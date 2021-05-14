@@ -447,6 +447,40 @@ app.post('/delete', (req,res)=>{
 })
 
 
+// Handle Interviews (DELETE & CREATE)
+app.post('/interview', (req,res)=>{
+  let id = req.body.id
+
+    models.Application.findOne({where : {id: id}})
+    .then((app)=>{
+    
+        let newApp = models.Application.build({
+            title: app.title,
+            company: app.company,
+            interview : 1,
+            username : app.username,
+            user_id: app.user_id,
+            raised_hands: app.raised_hands,
+            heart: app.heart,
+            tada: app.tada,
+            grinning: app.grinning,
+            profileImage: app.profileImage
+
+        })
+
+        newApp.save().then((result)=>{
+            if(result){
+                models.Application.destroy({where: {id:id}})
+                res.json(result)
+            } else {
+                console.log("Error")
+            }
+        })
+    
+    })
+    
+})
+
 //NEED TO ADD Authentication Check - Get user_id to input in request
 app.get("/search/:term", (req, res) => {
      //http://localhost:8080/search/1,2 1 is term, 2, is user
