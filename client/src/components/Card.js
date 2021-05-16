@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Component } from "react";
 import "./Card.css";
 import {useEffect} from 'react'
 
