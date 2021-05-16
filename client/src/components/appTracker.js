@@ -23,15 +23,17 @@ function Apptracker(props){
 //Grabs user's apps
     const fetchAllApps = () =>{
         const username = localStorage.getItem('username')
+        const token = localStorage.getItem('jsonwebtoken')
 
-        axios.get(`http://localhost:8080/profile/${username}`)
-        .then(response => {
-            if(response.data.error){
-                console.log(response.data.error)
-            } else {
-                setApps(response.data)
-                
+        fetch(`http://localhost:8080/profile/${username}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
             }
+        })
+        .then(response => response.json())
+        .then(response => {
+                setApps(response)     
         })
 
     }

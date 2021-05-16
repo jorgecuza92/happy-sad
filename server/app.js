@@ -10,8 +10,8 @@ const mongoose = require("mongoose");
 const EmojiItem = require("./schemas/emoji");
 const User = require("./schemas/user");
 const { v4: uuidv4 } = require("uuid");
-// const { nextTick } = require("node:process");
 const user = require("./models/user");
+const tokenCheck = require('./tokenCheck')
 
 const app = express();
 
@@ -41,8 +41,6 @@ app.post("/update", (req, res) => {
   let userId = req.body.userId;
   let url = req.body.imageUpload;
 
-  console.log(url)
-  let body = req.body;
   console.log(userId);
   models.User.update(
     {
@@ -52,12 +50,20 @@ app.post("/update", (req, res) => {
       where: {
         id: userId,
       },
-    }
-  ).then(updatedUser => {
-    console.log(updatedUser)
+    }).then(updatedUser => {
+
+    models.Application.update(
+      {
+        profileImage: url,
+      },
+      {
+        where: {
+          user_id: userId,
+        }
+      })
   })
 
-  res.json(body);
+  res.json({message: 'updated'});
 });
 
 app.get("/dashboard", (req, res) => {
@@ -285,7 +291,7 @@ app.get('/emoji/:data', (req, res) => {
 
 
 // Grabbing all Users applications
-app.get('/profile/:user', (req, res) => {
+app.get('/profile/:user', tokenCheck, (req, res) => {
   let user = req.params.user
 
   models.Application.findAll({
@@ -298,7 +304,7 @@ app.get('/profile/:user', (req, res) => {
 })
 
 //Gets all user info
-app.get('/user/:id', (req, res) => {
+app.get('/user/:id', tokenCheck, (req, res) => {
 
   let user = req.params.id
 

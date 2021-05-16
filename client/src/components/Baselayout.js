@@ -1,37 +1,34 @@
 import './App.css'
 
-import {Component} from 'react'
+import { Component } from 'react'
 import Navbar from './Navbar/Navbar'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
 
- class BaseLayout extends Component{
+class BaseLayout extends Component {
     constructor() {
         super()
         this.state = {
-            loggedin: null
+            loggedin: false
         }
     }
 
 
-componentDidMount(props) {
-const token = localStorage.getItem('jsonwebtoken')
-if (token) {
-console.log('token present')
-}
-else {
-    console.log('else')
-}
-}
-
-    render(){
-            return(
-                <div>
-                  <Navbar />  
-                    {this.props.children}                 
-                </div>
-                )
+    componentDidMount(props) {
+        const token = localStorage.getItem('jsonwebtoken')
+        if (token) {
+            this.props.onLogin()
         }
+    }
+
+    render() {
+        return (
+            <div>
+                <Navbar />
+                {this.props.children}
+            </div>
+        )
+    }
 }
 
 const mapStateToProps = (state) => {
@@ -40,4 +37,10 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(BaseLayout)
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onLogin: () => dispatch({ type: 'LOGIN' })
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BaseLayout)
