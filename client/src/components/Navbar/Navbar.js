@@ -1,39 +1,64 @@
 import React, { Component } from 'react';
-import { MenuItems } from './MenuItems';
 import './Navbar.css';
 import { Button } from '../Button';
+import { NavLink } from 'react-router-dom'
+import { connect } from 'react-redux'
+
+
 
 class Navbar extends Component {
     state = { clicked: false }
+
+ 
 
     handleClick = () => {
         this.setState({ clicked: !this.state.clicked })
     }
 
+
+
+
     render() {
-        return(
+        return (
             <nav className="NavbarItems">
-                <h1 className="navbar-logo">SAF<i className="fab fa-react"></i></h1>
-                <div className="menu-icon" onClick={this.handleClick}>
-                    <i className={this.state.clicked ? 'fas fa-times' : 'fas fa-bars'}></i>
-                </div>
+                <NavLink to="/">
+                    <h1 className="navbar-logo">SAF<i className="fab fa-react"></i></h1>
+                    <div className="menu-icon" onClick={this.handleClick}>
+                        <i className={this.state.clicked ? 'fas fa-times' : 'fas fa-bars'}></i>
+                    </div>
+                </NavLink>
                 <ul className={this.state.clicked ? 'nav-menu active' : 'nav-menu'}>
-                    {MenuItems.map((item, index) => {
-                        return (
-                            <li key={index}>
-                                <a className={item.cName} href={item.url}>
-                                {item.label}
-                                </a>
-                            </li>
-                        )
-                    })}
-                    
+
+                    <li key="Home">
+                        <NavLink to="/" className="nav-links">Home</NavLink>
+                    </li>
+                    <li key="Tracker">
+                        <NavLink to="/app-track" className="nav-links">Tracker</NavLink>
+                    </li>
+                    <li key="Profile">
+                        <NavLink to="/profile" className="nav-links">Profile</NavLink>
+                    </li>
+
+
                 </ul>
-                <Button>Register</Button>
-                <Button>Login</Button>
+
+                {this.props.loggedin ? null : <NavLink to="/register"><Button>Register</Button></NavLink>}
+                {this.props.loggedin ? null :<NavLink to="/login"><Button>Login</Button></NavLink>}
+                {this.props.loggedin ? <NavLink to="/logout"><Button>Logout</Button></NavLink> : null }
+
             </nav>
         )
     }
 }
 
-export default Navbar;
+
+
+const mapStateToProps = (state) => {
+    return {
+        loggedin: state.loggedin
+    }
+}
+
+
+
+export default connect(mapStateToProps)(Navbar);
