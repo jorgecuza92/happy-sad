@@ -1,6 +1,10 @@
 
 import { useState, useEffect } from 'react'
-
+import TextField from '@material-ui/core/TextField'
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import Button from '@material-ui/core/Button';
 
 function Application() {
 
@@ -93,18 +97,44 @@ function Application() {
   return (
     <div>
      
-        <div>Add Application:
-        <input type='text' placeholder='Company' onChange={onChange} name='company' required />
-        <input type='checkbox' onChange={compCheck} name='seeComp' />
-        <label>Hide Company</label>
+        <div>
+        <TextField id="standard-basic" onChange={onChange}  name='company' label="Company" />
+        {/* <input type='text' placeholder='Company' onChange={onChange} name='company' required /> */}
+        <FormControlLabel
+          value="top"
+          control={<Checkbox color="primary" />}
+          label="Hide Company"
+          onChange={compCheck}
+          size='small'
+          name='seeComp'
+          labelPlacement="top"
+        />
+        {/* <input type='checkbox' onChange={compCheck} name='seeComp' />
+        <label>Hide Company</label> */}
+        <TextField id="standard-basic" onChange={onChange}  name='title' label="Job Title" />
 
-        <input type='text' placeholder='Job Title' onChange={onChange} name='title' required />
-
-        <input type='checkbox' name='seeJob' onChange={jobCheck} id='assessment' />
-        <label>Hide JobTitle</label>
-
-
-        <button onClick={addApp}>Submit</button></div>
+        {/* <input type='text' placeholder='Job Title' onChange={onChange} name='title' required /> */}
+        <FormControlLabel
+          value="top"
+          control={<Checkbox color="primary" />}
+          label="Hide Job Title"
+          onChange={jobCheck}
+          size='small'
+          name='seeJob'
+          labelPlacement="top"
+        />
+        {/* <input type='checkbox' name='seeJob' onChange={jobCheck} id='assessment' />
+        <label>Hide JobTitle</label> */}
+          <Button
+            variant="contained"
+            color="default"
+            size="small"
+            onClick={addApp}
+            startIcon={<CloudUploadIcon />}
+          >
+            Add Application
+          </Button>
+       </div>
   
     </div>
   )

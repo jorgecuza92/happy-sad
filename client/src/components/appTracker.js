@@ -10,6 +10,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Application from './Application';
+import Switch from '@material-ui/core/Switch';
+
 
 
 
@@ -67,7 +69,7 @@ function Apptracker(props){
       
         const id = e.target.value
         const decision = e.target.name
-        console.log(decision)
+        console.log(id)
         fetch(`http://localhost:8080/${decision}`, {
             method: 'POST',
             headers: {
@@ -109,13 +111,15 @@ function Apptracker(props){
             control={<Checkbox  onChange={handleStatus}  disabled={app.rejection? true:false} value={app.id} name="delete" />}
             label="Rejection"
           />
+           
         </FormGroup>
        
+          <FormControlLabel
+        control={<Switch  onChange={handleStatus}  value={app.id}  name="hide" />}
+        label="Hide Application"
+      />
       </FormControl>
-      <IconButton onClick={handleStatus} name='hide' value={app.id} aria-label="delete">
-        <DeleteIcon />
-        </IconButton>
-       
+    
         </div>
         }
        
@@ -141,9 +145,17 @@ function Apptracker(props){
           variant="outlined"
         />
             
+            <br />
+            <div>
+                <Application />
+            </div>
+    <br />
+            
+            
             {/* <button onClick={handleSearch}>Search</button> */}
-
+          <div>
             {applications}
+            </div>
         </div>
     )
 
@@ -151,4 +163,11 @@ function Apptracker(props){
 }
 
 export default Apptracker
+
+
+// display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     justify-content: space-between;
+// }
 
