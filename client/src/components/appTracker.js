@@ -4,14 +4,10 @@ import { Checkbox } from '@material-ui/core'
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import IconButton from '@material-ui/core/IconButton';
 import FormLabel from '@material-ui/core/FormLabel';
-import DeleteIcon from '@material-ui/icons/Delete';
-import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Application from './Application';
 import Switch from '@material-ui/core/Switch';
-
 
 
 
@@ -41,7 +37,7 @@ function Apptracker(props){
         })
 
     }
-//Search
+//Search user apps 
     const handleChange = (e) => {
      
         if (e.target.value === "") {
@@ -91,31 +87,32 @@ function Apptracker(props){
         if(app.hide_application){
             return null
         } else {
-            return <div className="postDiv" key={app.id}>
+            return <div className="appList" key={app.id}>
         
-        <div style={{fontSize:'10pt'}}>{app.title}</div>
-        <p style={{fontSize:'10pt'}}>{app.company}</p>
+        {/* <div style={{fontSize:'10pt', color:"#c85f49"}}>{app.title}</div>
+        <p style={{fontSize:'10pt', color:"#c85f49"}}>{app.company}</p> */}
 
         <FormControl component="fieldset" className='haha'>
-        <FormLabel component="legend">Application Status</FormLabel>
+        <FormLabel  style={{color:"#c85f49"}} component="legend">{app.title}<br></br>{app.company} </FormLabel>
         <FormGroup>
           <FormControlLabel
-            control={<Checkbox  onChange={handleStatus}  disabled ={app.interview? true:false} value={app.id} name="interview" />}
+            control={<Checkbox  onChange={handleStatus} style={{color:"#614878"}} disabled ={app.interview? true:false} value={app.id} name="interview" />}
             label="Interview"
           />
           <FormControlLabel
-            control={<Checkbox  onChange={handleStatus} disabled  ={app.assessment? true:false} value={app.id} name="assessment" />}
+            control={<Checkbox  onChange={handleStatus}  style={{color:"#614878"}} disabled  ={app.assessment? true:false} value={app.id} name="assessment" />}
             label="Assessment"
           />
           <FormControlLabel
-            control={<Checkbox  onChange={handleStatus}  disabled={app.rejection? true:false} value={app.id} name="delete" />}
+            control={<Checkbox  onChange={handleStatus} style={{color:"#614878"}}  disabled={app.rejection? true:false} value={app.id} name="delete" />}
             label="Rejection"
+            
           />
            
         </FormGroup>
        
           <FormControlLabel
-        control={<Switch  onChange={handleStatus}  value={app.id}  name="hide" />}
+        control={<Switch  onChange={handleStatus} style={{color:"#c85f49"}} color='primary' value={app.id}  name="hide" />}
         label="Hide Application"
       />
       </FormControl>
@@ -130,22 +127,20 @@ function Apptracker(props){
         <div>
        
        <br />
-            <div>
-                <Application />
-            </div>
+           
             
             <br />
             
             <TextField
           id="outlined-full-width"
         
-          style={{ margin: 8 }}
+          style={{ 'margin': "8px auto", background: 'white', placeholder: 'purple'}}
           placeholder="Search for Title or Company Name"
-          
+          color = 'white'
           onChange={handleChange}
           fullWidth
           name ='name '
-          margin="normal"
+          margin='normal'
           InputLabelProps={{
             shrink: true,
           }}
@@ -154,12 +149,17 @@ function Apptracker(props){
             
             <br />
             
+            <div className='appContent'>
 
+            <div className="trackDiv">
+                <Application />
+            </div>
             
-            
-            {/* <button onClick={handleSearch}>Search</button> */}
-          <div>
+          <div className='applications'>
             {applications}
+            </div>
+            
+
             </div>
         </div>
     )

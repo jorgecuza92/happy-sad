@@ -12,7 +12,9 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
-
+body {
+  background-color: #eae0ca
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -38,7 +40,7 @@
 }
 
 .app_body {
-  background: #EAE0CA;
+  background: #c85f49;
 }
 
 .postDiv {
@@ -59,7 +61,36 @@
   justify-content: space-between;
 
 }
+.appContent {
+  display: flex
+}
 
+.appList {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: fit-content;
+  padding: 10px;
+  margin: 20px;
+  /* color:#c85f49; */
+  box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
+  background: #fff;
+}
+
+.trackDiv {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: fit-content;
+  padding: 10px;
+  margin: 20px;
+  box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
+  background: #fff;
+}
 .emojiContainer {
   display: flex;
   flex-direction: row;
