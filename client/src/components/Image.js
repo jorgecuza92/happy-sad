@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import './Image.css'
+import { Card } from "@material-ui/core";
 
 class Image extends Component {
   
@@ -58,11 +59,13 @@ class Image extends Component {
   render() {
     return (
       <div>
-        Update Profile Image:
+        <Card className='fileInputContainer'>
+        Upload Profile Image:
         <br />
         <input type="file" onChange={this.imageUploadHandler} name='profileImage' />
         <img src={this.state.theFileFromServer} className='imageUpload'alt="" />
         <button onClick={this.clickSave}>Save</button>
+        </Card>
       </div>
     );
   }

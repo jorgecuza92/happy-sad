@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import "./Card.css";
 import {useEffect} from 'react'
+import {Card} from '@material-ui/core'
 
-function Card(props) {
+function ProfileCard(props) {
 
   const [user, setUser] = useState({})
   
@@ -33,6 +34,7 @@ function Card(props) {
   // const profileURL = URL.createObjectURL(`${user.profileImage}`)
   
     return (
+          <Card>
         <div>
           <div className="Card">
             <div className="upperContainer">
@@ -54,10 +56,11 @@ function Card(props) {
             </div>
           </div>
         </div>
+          </Card>
       );
 
 }
 
 
 
-export default Card;
+export default ProfileCard;

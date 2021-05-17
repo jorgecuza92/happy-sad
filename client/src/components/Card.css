@@ -1,11 +1,10 @@
-.Card {
+div.Card {
   width: 300px;
-  height: 480px;
+  /* height: 480px; */
   background: white;
-  border-radius: 10px;
-  box-shadow: 0px 1px 10px 1px black;
+  box-shadow: 0px 1px 10px 2px rgba(75, 75, 75, 0.349);
 
-}
+} 
 
 
 .Card > img {
@@ -13,7 +12,5 @@
 }
 
 .emojiStatsContainer {
-  display: flex;
-  flex-direction: row;
-  text-align-last: center;
+
 }
