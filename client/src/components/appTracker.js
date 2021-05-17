@@ -9,6 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import FormLabel from '@material-ui/core/FormLabel';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 
 function Apptracker(props){
@@ -63,6 +64,7 @@ function Apptracker(props){
       
         const id = e.target.id
         const decision = e.target.name
+        console.log(decision)
         fetch(`http://localhost:8080/${decision}`, {
             method: 'POST',
             headers: {
@@ -84,7 +86,7 @@ function Apptracker(props){
         if(app.hide_application){
             return null
         } else {
-            return <div className="postDiv">
+            return <div className="postDiv" key={app.id}>
         
         <div style={{fontSize:'10pt'}}>{app.title}</div>
         <p style={{fontSize:'10pt'}}>{app.company}</p>
@@ -107,8 +109,8 @@ function Apptracker(props){
         </FormGroup>
        
       </FormControl>
-      <IconButton onClick={handleStatus} name='hide' id={app.id} aria-label="delete">
-        <DeleteIcon />
+      <IconButton  aria-label="delete">
+        <DeleteIcon onClick={handleStatus} name="hide" id={app.id} />
         </IconButton>
        
         </div>
@@ -120,7 +122,22 @@ function Apptracker(props){
 
         <div>
             <h1>App Tracker</h1>
-            <input type="text" placeholder = 'Title or Company ' onChange={handleChange}  name ='name '/>
+            <TextField
+          id="outlined-full-width"
+        
+          style={{ margin: 8 }}
+          placeholder="Title or Company Name"
+          
+          onChange={handleChange}
+          fullWidth
+          name ='name '
+          margin="normal"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          variant="outlined"
+        />
+            
             {/* <button onClick={handleSearch}>Search</button> */}
 
             {applications}
