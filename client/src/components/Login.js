@@ -41,7 +41,7 @@ function Login(props) {
       });
   };
 
-  const paperStyle = {padding:40, height: '40vh', width: 340, margin: "70px auto"}
+  const paperStyle = {padding:40, height: 'fit-content', width: 340, margin: "70px auto"}
   const avatarStyle= {backgroundColor: "#88729D"}
   const btnStyle = {margin: '10px 0', backgroundColor: "#DE7D63"}
   return (
