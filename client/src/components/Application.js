@@ -3,7 +3,8 @@ import { useState, useEffect } from 'react'
 import TextField from '@material-ui/core/TextField'
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import SaveIcon from '@material-ui/icons/Save';
+
 import Button from '@material-ui/core/Button';
 
 function Application() {
@@ -130,9 +131,9 @@ function Application() {
             color="default"
             size="small"
             onClick={addApp}
-            startIcon={<CloudUploadIcon />}
+            startIcon={<SaveIcon />}
           >
-            Add Application
+            Save Application
           </Button>
        </div>
   

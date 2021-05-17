@@ -1,6 +1,10 @@
 import React from "react";
 import { useState } from "react";
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import { Grid, Paper, Avatar, TextField, Button, Typography, Link } from '@material-ui/core';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 
 
 function Login(props) {
@@ -37,26 +41,46 @@ function Login(props) {
       });
   };
 
+  const paperStyle = {padding:40, height: '40vh', width: 340, margin: "70px auto"}
+  const avatarStyle= {backgroundColor: "#88729D"}
+  const btnStyle = {margin: '10px 0', backgroundColor: "#DE7D63"}
   return (
-    <div>
- 
-      <h1 className="loginHeader">Login</h1>
-      <input
-        type="text"
-        onChange={handleChange}
-        className="username"
-        name="username"
+    <Grid>
+      <Paper elevation={10} style={paperStyle}>
+        <Grid align='center'>
+          <Avatar style={avatarStyle}><LockOutlinedIcon/></Avatar>
+          <h2>Sign In</h2>
+        </Grid>
+      
+        <TextField label='Username' type="text"  name="username" 
+        onChange={handleChange}  fullWidth required/>
+        
+        <TextField label='Password' type="password"  name="password" 
+        onChange={handleChange}  fullWidth required/>
+
+        <FormControlLabel
+        control={
+          <Checkbox
+            
+            name="checkedB"
+            color="primary"
+          />
+        }
+        label="Remember me"
       />
-      <input
-        type="password"
-        onChange={handleChange}
-        className="password"
-        name="password"
-      />
-      <button onClick={handleLogin} className="loginBtn">
-        Enter
-      </button>
-    </div>
+       
+        <Button type='submit' variant="contained" style={btnStyle} onClick={handleLogin} fullWidth>Sign In</Button>
+        <Typography> Do you have an account ?
+        <Link href="http://localhost:3000/register" >
+          Register
+        </Link>
+        </Typography>
+      </Paper>
+    </Grid>
+
+
+
+    
   );
 
 }

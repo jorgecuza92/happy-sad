@@ -128,12 +128,19 @@ function Apptracker(props){
     return (
 
         <div>
-            <h1>App Tracker</h1>
+       
+       <br />
+            <div>
+                <Application />
+            </div>
+            
+            <br />
+            
             <TextField
           id="outlined-full-width"
         
           style={{ margin: 8 }}
-          placeholder="Title or Company Name"
+          placeholder="Search for Title or Company Name"
           
           onChange={handleChange}
           fullWidth
@@ -146,10 +153,8 @@ function Apptracker(props){
         />
             
             <br />
-            <div>
-                <Application />
-            </div>
-    <br />
+            
+
             
             
             {/* <button onClick={handleSearch}>Search</button> */}
