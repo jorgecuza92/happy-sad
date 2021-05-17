@@ -11,7 +11,7 @@ function CanIGo (LoadThisComp) {
             super(props)
 
             if (!this.props.loggedin) {
-                this.props.history.push('/login')
+                this.props.history.push('/')
             }
         }
 

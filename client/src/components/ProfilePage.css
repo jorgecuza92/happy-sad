@@ -1,5 +1,21 @@
 .cardContainer {
-  display: flex;
-  text-align: -webkit-center;
+  display: column;
+  width: fit-content;
 
+  flex-direction: row;
+  padding: 20px;
+
+}
+
+
+.inputContainer {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+}
+
+.overallContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
