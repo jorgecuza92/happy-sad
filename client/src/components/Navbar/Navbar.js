@@ -3,7 +3,7 @@ import './Navbar.css';
 import { Button } from '../Button';
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
-
+import {Animated} from "react-animated-css";
 
 
 class Navbar extends Component {
@@ -23,20 +23,19 @@ class Navbar extends Component {
             <nav className="NavbarItems">
                 <NavLink to="/">
                     <h1 className="navbar-logo">SAF<i className="fab fa-react"></i></h1>
+                </NavLink>
                     <div className="menu-icon" onClick={this.handleClick}>
                         <i className={this.state.clicked ? 'fas fa-times' : 'fas fa-bars'}></i>
                     </div>
-                </NavLink>
                 <ul className={this.state.clicked ? 'nav-menu active' : 'nav-menu'}>
-
                     <li key="Home">
-                        <NavLink to="/" className="nav-links">Home</NavLink>
+                        <NavLink to="/" onClick={this.handleClick} className="nav-links">Home</NavLink>
                     </li>
                     <li key="Tracker">
-                        <NavLink to="/app-track" className="nav-links">Tracker</NavLink>
+                        <NavLink to="/app-track" onClick={this.handleClick} className="nav-links">Tracker</NavLink>
                     </li>
                     <li key="Profile">
-                        <NavLink to="/profile" className="nav-links">Profile</NavLink>
+                        <NavLink to="/profile" onClick={this.handleClick} className="nav-links">Profile</NavLink>
                     </li>
 
 
