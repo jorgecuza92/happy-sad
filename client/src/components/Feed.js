@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
-import grinning from '../img/grinning.png';
-import heart from '../img/heart.png';
-import raised_hands from '../img/raised_hands.png';
-import tada from '../img/tada.png';
+import grinning from '../img/grin.svg';
+import heart from '../img/heart.svg';
+import raised_hands from '../img/raising.svg';
+import tada from '../img/party.svg';
 import Avatar from '@material-ui/core/Avatar';
+import {Animated} from "react-animated-css";
 
 
 
@@ -201,14 +202,16 @@ class RaisedHands extends Component {
 
     if (this.state.buttonCLicked) {
       return (
-        <div className="emojiBox" style={{ background: 'red' }}>
-          <div>
+        <Animated animationIn='pulse'>
+        <div className="emojiBox" style={{ background: '#de7d63' }}>
+          <div >
             <img src={raised_hands} alt="" className="emoji" />
           </div>
 
           <div><h5>{this.state.raised_hands}</h5></div>
 
         </div>
+        </Animated>
       )
     } else {
       return (
@@ -260,12 +263,14 @@ class GiveHeart extends Component {
 
     if (this.state.buttonCLicked) {
       return (
-        <div className="emojiBox" style={{ background: 'red' }}>
+        <Animated animationIn='pulse'>
+        <div className="emojiBox" style={{ background: '#de7d63' }}>
           <div>
             <img src={heart} alt="" className="emoji" />
           </div>
           <div><h5>{this.state.heart}</h5></div>
         </div>
+        </Animated>
       )
     } else {
       return (
@@ -316,12 +321,14 @@ class GiveTada extends Component {
 
     if (this.state.buttonCLicked) {
       return (
-        <div className="emojiBox" style={{ background: 'red' }}>
+        <Animated animationIn='pulse'>
+        <div className="emojiBox" style={{ background: '#de7d63' }}>
           <div>
             <img src={tada} alt="" className="emoji" />
           </div>
           <div><h5>{this.state.tada}</h5></div>
         </div>
+        </Animated>
       )
     } else {
       return (
@@ -372,12 +379,14 @@ class GiveGrinning extends Component {
 
     if (this.state.buttonCLicked) {
       return (
-        <div className="emojiBox" style={{ background: 'red' }}>
+        <Animated animationIn='pulse'>
+        <div className="emojiBox" style={{ background: '#de7d63' }}>
           <div>
             <img src={grinning} alt="" className="emoji" />
           </div>
           <div><h5>{this.state.grinning}</h5></div>
         </div>
+        </Animated>
       )
     } else {
       return (
