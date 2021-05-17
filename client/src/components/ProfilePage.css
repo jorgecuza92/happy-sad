@@ -1,4 +1,21 @@
 .cardContainer {
-  display: flex;
+  display: column;
+  width: fit-content;
 
+  flex-direction: row;
+  padding: 20px;
+
+}
+
+
+.inputContainer {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+}
+
+.overallContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
