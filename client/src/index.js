@@ -1,39 +1,44 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {createStore} from 'redux'
+import {Provider} from 'react-redux'
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { Router, Route, Switch} from 'react-router-dom'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import BaseLayout from './components/Baselayout.js'
-// import history from './utils/history'
 import Register from './components/Registration';
 import Application from './components/Application';
 import Login from './components/Login';
-import { createBrowserHistory } from 'history';
 import Image from './components/Image';
 import Apptracker from './components/appTracker';
 import ProfilePage from './components/ProfilePage';
+import Feed from './components/Feed';
+import reducer from './utils/reducer'
+import AuthPath from './auth'
+import Logout from './components/logout'
+import Apples from './components/apples';
 
-const history = createBrowserHistory();
-
-
+const closet = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router history={history}>
-      <BaseLayout>
-      <Switch>
-        <Route exact path = '/register' component={Register} />
-        <Route exact path = '/login' component={Login} />
-        <Route exact path = '/application' component={Application} />
-        <Route exact path = '/app-track' component={Apptracker} />
-        
-        <Route exact path = '/' component={App} />
-        <Route exact path = '/upload' component={Image} />
-        <Route exact path = '/profile' component={ProfilePage} />
-    </Switch>
-    </BaseLayout>
-    </Router>
+    <Provider store={closet}>
+      <BrowserRouter>
+        <BaseLayout>
+          <Switch>
+            <Route exact path='/register' component={Register} />
+            <Route exact path='/login' component={Login} />
+            <Route exact path='/logout' component={Logout} />
+            <Route exact path='/application' component={Application} />
+            <Route exact path='/app-track' component={AuthPath(Apples)} />
+            <Route exact path='/' component={Feed} />
+            <Route exact path='/upload' component={Image} />
+            <Route exact path='/profile' component={AuthPath(ProfilePage)} />
+            <Route component={Feed} />
+          </Switch>
+        </BaseLayout>
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -10,8 +10,8 @@ const mongoose = require("mongoose");
 const EmojiItem = require("./schemas/emoji");
 const User = require("./schemas/user");
 const { v4: uuidv4 } = require("uuid");
-// const { nextTick } = require("node:process");
 const user = require("./models/user");
+const tokenCheck = require('./tokenCheck')
 
 const app = express();
 
@@ -41,8 +41,6 @@ app.post("/update", (req, res) => {
   let userId = req.body.userId;
   let url = req.body.imageUpload;
 
-  console.log(url)
-  let body = req.body;
   console.log(userId);
   models.User.update(
     {
@@ -52,16 +50,24 @@ app.post("/update", (req, res) => {
       where: {
         id: userId,
       },
-    }
-  ).then(updatedUser => {
-      console.log(updatedUser)
+    }).then(updatedUser => {
+
+    models.Application.update(
+      {
+        profileImage: url,
+      },
+      {
+        where: {
+          user_id: userId,
+        }
+      })
   })
 
-  res.json(body);
+  res.json({message: 'updated'});
 });
 
 app.get("/dashboard", (req, res) => {
-  uploadImage(req, (photoURL) => {});
+  uploadImage(req, (photoURL) => { });
 });
 
 mongoose.connect(
@@ -95,7 +101,7 @@ app.post("/emoji-add", (req, res) => {
     grinning: grinning,
   });
 
-  
+
 });
 
 app.post("/register", (req, res) => {
@@ -146,6 +152,7 @@ app.post("/login", (req, res) => {
             userId: user.id,
             token: token,
             username: username,
+            profileImage: user.profileImage
           });
         } else {
           res.json({
@@ -166,127 +173,117 @@ app.post("/login", (req, res) => {
 
 
 
-app.post("/app", (req, res) => {
-  let userid = req.body.userId;
-  let company = req.body.company;
-  let seeComp = req.body.seeComp;
-  let jobTitle = req.body.title;
-  let seeJob = req.body.seeJob;
-  let date = Date.now();
 
-  let newApp = models.Application.build({
-    user_id: userid,
-    company: company,
-    title: jobTitle,
-  });
-
-  newApp.save().then((savedApp) => {
-    res.json({
-      success: true,
-    });
-  });
-});
 
 
 app.post('/app', (req, res) => {
-    let userid = req.body.userId
-    let company = req.body.company
-    let seeComp = req.body.seeComp
-    let jobTitle = req.body.title
-    let seeJob = req.body.seeJob
-    let date = Date.now()
+  let userid = req.body.userId
+  let username = req.body.username
+  let profileImage = req.body.profileImage
+  let company = req.body.company
+  let seeComp = req.body.seeComp
+  let jobTitle = req.body.title
+  let seeJob = req.body.seeJob
 
-    let newApp = models.Application.build({
-        username: userid,
-        company: company,
-        title: jobTitle
-    })
 
-    newApp.save().then((savedApp) => {
-        res.json({
-            success: true
-        })
+
+  let newApp = models.Application.build({
+    username: username,
+    user_id: userid,
+    profileImage: profileImage,
+    company: company,
+    title: jobTitle,
+    see_company: seeComp,
+    see_title: seeJob
+  })
+
+  console.log(newApp)
+
+  newApp.save().then((savedApp) => {
+    res.json({
+      success: true
     })
+  })
 
 
 })
 
 app.get('/emoji/:data', (req, res) => {
-    //http://localhost:8080/emoji/1,2,80,heart 1 is sender, 2, is user, 80 is application, heart is emoji
-    let data = req.params.data
-    let string = data.split(",")
-    //This is the User ID for the sender of the emoji
-    let sender = string[0]
-    //This is the User ID of the recipient
-    let user = string[1]
-    let application = string[2]
-    let emoji = string[3]
+  //http://localhost:8080/emoji/1,2,80,heart 1 is sender, 2, is user, 80 is application, heart is emoji
+  let data = req.params.data
+  let string = data.split(",")
+  //This is the User ID for the sender of the emoji
+  let sender = string[0]
+  //This is the User ID of the recipient
+  let user = string[1]
+  let application = string[2]
+  let emoji = string[3]
 
-    console.log(data)
+  console.log(data)
 
 
-    //Updating the count in the Application Table
-    models.Application.update({
-        [emoji]: sequelize.literal(`${emoji} + 1`)
-    }, {
-        where: {
-            id: application
-        }
-    })
-
-    //update the count in the User Table
-    models.User.update({
-        [emoji]: sequelize.literal(`${emoji} + 1`)
-    }, {
-        where: {
-            id: user
-        }
-    })
-
-    //Update MongoDB database for user sending emoji
-    let emojiChange = {
-        application_id: application,
-        [emoji]: true
-
+  //Updating the count in the Application Table
+  models.Application.update({
+    [emoji]: sequelize.literal(`${emoji} + 1`)
+  }, {
+    where: {
+      id: application
     }
+  })
+
+  //update the count in the User Table
+  models.User.update({
+    [emoji]: sequelize.literal(`${emoji} + 1`)
+  }, {
+    where: {
+      id: user
+    }
+  })
+
+  //Update MongoDB database for user sending emoji
+  let emojiChange = {
+    application_id: application,
+    [emoji]: true
+
+  }
 
 
-    User.findOneAndUpdate(
-      { id: user, emojis: { $elemMatch: { application_id: application } } },
-      { $set: { [`emojis.$.${emoji}`]: true } },
-      { upsert: true, useFindAndModify: false },
-      (error, result) => {
-        if (!result) {
-          User.findOne({ id: user }, (error, user) => {
-            if (!user) {
-              var newUser = new User({
-                id: string[1],
-              });
+  User.findOneAndUpdate(
+    { id: user, emojis: { $elemMatch: { application_id: application } } },
+    { $set: { [`emojis.$.${emoji}`]: true } },
+    { upsert: true, useFindAndModify: false },
+    (error, result) => {
+      if (!result) {
+        User.findOne({ id: user }, (error, user) => {
+          if (!user) {
+            var newUser = new User({
+              id: string[1],
+            });
 
-              newUser.emojis.push(emojiChange);
-              newUser.save();
-            } else {
-              user.emojis.push(emojiChange);
-              user.save((error) => {
-                if (error) {
-                  console.log({ error: "Unable to save emoji" });
-                } else {
-                  console.log({
-                    success: true,
-                    message: "Emoji has been saved!",
-                  });
-                }
-              });
-            }
-          });
-        } else {
-          console.log(result);
-        }
+            newUser.emojis.push(emojiChange);
+            newUser.save();
+          } else {
+            user.emojis.push(emojiChange);
+            user.save((error) => {
+              if (error) {
+                console.log({ error: "Unable to save emoji" });
+              } else {
+                console.log({
+                  success: true,
+                  message: "Emoji has been saved!",
+                });
+              }
+            });
+          }
+        });
+      } else {
+        console.log(result);
       }
-    );
+    }
+  );
 
-res.json({ life: "continues" });
-  
+  res.json({ life: "continues" });
+
 })
 
 
@@ -294,64 +291,64 @@ res.json({ life: "continues" });
 
 
 // Grabbing all Users applications
-app.get('/profile/:user', (req,res)=>{
-    let user = req.params.user
+app.get('/profile/:user', tokenCheck, (req, res) => {
+  let user = req.params.user
 
-    models.Application.findAll({
-        where: {username: user},  order: [
-            ['id', 'DESC']
-        ],
-    }).then(apps =>{
-        res.json(apps)
-    })
+  models.Application.findAll({
+    where: { username: user }, order: [
+      ['id', 'DESC']
+    ],
+  }).then(apps => {
+    res.json(apps)
+  })
 })
 
 //Gets all user info
-app.get('/user/:id', (req,res)=>{
-    
-    let user = req.params.id
+app.get('/user/:id', tokenCheck, (req, res) => {
 
-    const headers = req.headers
-    if(headers) {
-      const authorization = headers['authorization']
-      if(authorization) {
-        const token = authorization.split(' ')[1]
-        const decoded = jwt.verify(token, 'KRABBYPATTYFORMULA')
-        console.log(decoded)
-        if(decoded) {
-          const username = decoded.username
-          console.log(user)
-          models.User.findOne({
-            where: {
-              id: user,
-              username: username
-            }
-          }).then((user) => {
-              res.json(user)
+  let user = req.params.id
 
-            // if(user) {
-            //   next()
-    
-            //   models.User.findOne({
-            //       where: {id: user}
-            //   }).then(user =>{
-            //       res.json(user)
-            //   })
-            // }
-          })
-          // const authUser = users.find(user => user.username == username)
-          // console.log(authUser)
-          // if(authUser) {
+  const headers = req.headers
+  if (headers) {
+    const authorization = headers['authorization']
+    if (authorization) {
+      const token = authorization.split(' ')[1]
+      const decoded = jwt.verify(token, 'KRABBYPATTYFORMULA')
+      console.log(decoded)
+      if (decoded) {
+        const username = decoded.username
+        console.log(user)
+        models.User.findOne({
+          where: {
+            id: user,
+            username: username
+          }
+        }).then((user) => {
+          res.json(user)
+
+          // if(user) {
+          //   next()
+
+          //   models.User.findOne({
+          //       where: {id: user}
+          //   }).then(user =>{
+          //       res.json(user)
+          //   })
           // }
-        } else {
-          res.json({error: 'Unable to authenticate'})
-        }
+        })
+        // const authUser = users.find(user => user.username == username)
+        // console.log(authUser)
+        // if(authUser) {
+        // }
       } else {
-        res.json({error: 'Unable to authenticate'})
+        res.json({ error: 'Unable to authenticate' })
       }
     } else {
-      res.json({error: 'error in headers'})
+      res.json({ error: 'Unable to authenticate' })
     }
+  } else {
+    res.json({ error: 'error in headers' })
+  }
 
 })
 
@@ -374,87 +371,87 @@ app.get("/feed/:page", (req, res) => {
 
 
 // Handle Rejections (DELETE & CREATE)
-app.post('/delete', (req,res)=>{
-    let id = req.body.id
+app.post('/delete', (req, res) => {
+  let id = req.body.id
 
-    models.Application.findOne({where : {id: id}})
-    .then((app)=>{
-    
-        let newApp = models.Application.build({
-            title: app.title,
-            company: app.company,
-            rejection : true,
-            username : app.username,
-            user_id: app.user_id,
-            raised_hands: app.raised_hands,
-            heart: app.heart,
-            tada: app.tada,
-            grinning: app.grinning,
-            profileImage: app.profileImage
+  models.Application.findOne({ where: { id: id } })
+    .then((app) => {
 
-        })
+      let newApp = models.Application.build({
+        title: app.title,
+        company: app.company,
+        rejection: true,
+        username: app.username,
+        user_id: app.user_id,
+        raised_hands: app.raised_hands,
+        heart: app.heart,
+        tada: app.tada,
+        grinning: app.grinning,
+        profileImage: app.profileImage
 
-        newApp.save().then((result)=>{
-            if(result){
-                models.Application.destroy({where: {id:id}})
-                res.json(result)
-            } else {
-                console.log("Error")
-            }
-        })
-    
+      })
+
+      newApp.save().then((result) => {
+        if (result) {
+          models.Application.destroy({ where: { id: id } })
+          res.json(result)
+        } else {
+          console.log("Error")
+        }
+      })
+
     })
-    
+
 })
 
 
 // Handle Interviews 
-app.post('/interview', (req,res)=>{
+app.post('/interview', (req, res) => {
   let id = req.body.id
 
-    models.Application.update({
-      interview: true
-    }, {where:{id:id}}).then(updatedApp =>{
-      
-      res.json(updatedApp)
-    })
-    
+  models.Application.update({
+    interview: true
+  }, { where: { id: id } }).then(updatedApp => {
+
+    res.json(updatedApp)
+  })
+
 })
 
-app.post('/assessment', (req,res)=>{
+app.post('/assessment', (req, res) => {
   let id = req.body.id
 
-    models.Application.update({
-      assessment: true
-    }, {where:{id:id}}).then(updatedApp =>{
-      res.json(updatedApp)
-    })
-    
+  models.Application.update({
+    assessment: true
+  }, { where: { id: id } }).then(updatedApp => {
+    res.json(updatedApp)
+  })
+
 })
 
-app.post('/hide', (req,res)=>{
+app.post('/hide', (req, res) => {
   let id = req.body.id
 
-    models.Application.update({
-      hide_application: true
-    }, {where:{id:id}}).then(updatedApp =>{
-      
-      res.json(updatedApp)
-    })
-    
+  models.Application.update({
+    hide_application: true
+  }, { where: { id: id } }).then(updatedApp => {
+
+    res.json(updatedApp)
+  })
+
 })
 
 
 //NEED TO ADD Authentication Check - Get user_id to input in request
 app.get("/search/:term", (req, res) => {
-     //http://localhost:8080/search/1,2 1 is term, 2, is user
-     let data = req.params.term
-     let string = data.split(",")
- 
-     let term = string[0]
-  
-     let username = string[1]
-  
+  //http://localhost:8080/search/1,2 1 is term, 2, is user
+  let data = req.params.term
+  let string = data.split(",")
+
+  let term = string[0]
+
+  let username = string[1]
+
   models.Application.findAll({
     where: {
       username: username,
@@ -489,7 +486,7 @@ app.get("/top", (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  res.json({ message: "working" });
+  res.json({ message: "poking the honeypot only upsets the bees...." });
 });
 
 app.listen(8080, () => {

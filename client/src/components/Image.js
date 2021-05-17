@@ -42,18 +42,14 @@ class Image extends Component {
   };
 
   clickSave = () => {
-    console.log('CLickSave triggered...')
-    
-    console.log(this.state.theFileFromServer)
-
-    let userId = 1
+    const id = localStorage.getItem('id')
     fetch('http://localhost:8080/update', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        userId: userId,
+        userId: id,
         imageUpload: this.state.theFileFromServer
       })
     })
@@ -62,6 +58,8 @@ class Image extends Component {
   render() {
     return (
       <div>
+        Update Profile Image:
+        <br />
         <input type="file" onChange={this.imageUploadHandler} name='profileImage' />
         <img src={this.state.theFileFromServer} className='imageUpload'alt="" />
         <button onClick={this.clickSave}>Save</button>

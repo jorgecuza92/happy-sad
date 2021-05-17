@@ -4,12 +4,13 @@ import { Checkbox } from '@material-ui/core'
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import IconButton from '@material-ui/core/IconButton';
 import FormLabel from '@material-ui/core/FormLabel';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import Application from './Application';
+
 
 
 function Apptracker(props){
@@ -24,15 +25,17 @@ function Apptracker(props){
 //Grabs user's apps
     const fetchAllApps = () =>{
         const username = localStorage.getItem('username')
+        const token = localStorage.getItem('jsonwebtoken')
 
-        axios.get(`http://localhost:8080/profile/${username}`)
-        .then(response => {
-            if(response.data.error){
-                console.log(response.data.error)
-            } else {
-                setApps(response.data)
-                
+        fetch(`http://localhost:8080/profile/${username}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
             }
+        })
+        .then(response => response.json())
+        .then(response => {
+                setApps(response)     
         })
 
     }
@@ -46,7 +49,7 @@ function Apptracker(props){
         axios
         .get(`http://localhost:8080/search/${e.target.value},${username}`)
         .then((response) => {
-          if (response.data == "") {
+          if (response.data === "") {
             fetchAllApps();
           } else {
             setApps(response.data);
@@ -62,7 +65,7 @@ function Apptracker(props){
 //  Change application status
     const handleStatus = (e) =>{
       
-        const id = e.target.id
+        const id = e.target.value
         const decision = e.target.name
         console.log(decision)
         fetch(`http://localhost:8080/${decision}`, {
@@ -95,22 +98,22 @@ function Apptracker(props){
         <FormLabel component="legend">Application Status</FormLabel>
         <FormGroup>
           <FormControlLabel
-            control={<Checkbox  onChange={handleStatus}  disabled ={app.interview? true:false} id={app.id} name="interview" />}
+            control={<Checkbox  onChange={handleStatus}  disabled ={app.interview? true:false} value={app.id} name="interview" />}
             label="Interview"
           />
           <FormControlLabel
-            control={<Checkbox  onChange={handleStatus} disabled  ={app.assessment? true:false} id={app.id} name="assessment" />}
+            control={<Checkbox  onChange={handleStatus} disabled  ={app.assessment? true:false} value={app.id} name="assessment" />}
             label="Assessment"
           />
           <FormControlLabel
-            control={<Checkbox  onChange={handleStatus}  disabled={app.rejection? true:false} id={app.id} name="delete" />}
+            control={<Checkbox  onChange={handleStatus}  disabled={app.rejection? true:false} value={app.id} name="delete" />}
             label="Rejection"
           />
         </FormGroup>
        
       </FormControl>
-      <IconButton  aria-label="delete">
-        <DeleteIcon onClick={handleStatus} name="hide" id={app.id} />
+      <IconButton onClick={handleStatus} name='hide' value={app.id} aria-label="delete">
+        <DeleteIcon />
         </IconButton>
        
         </div>

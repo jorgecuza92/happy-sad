@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
-import { connect } from "react-redux";
-import history from "../utils/history";
+import { connect } from 'react-redux'
+
 
 function Login(props) {
   const [credentials, setCredentials] = useState({});
@@ -29,14 +29,17 @@ function Login(props) {
           localStorage.setItem("jsonwebtoken", token);
           localStorage.setItem("username", result.username);
           localStorage.setItem('id', result.userId)
+          localStorage.setItem('url', result.profileImage)
+          props.onLogin()
           // take user to the dashboard 
-          props.history.push("/profile");
+          props.history.push("/app-track");
         }
       });
   };
 
   return (
     <div>
+ 
       <h1 className="loginHeader">Login</h1>
       <input
         type="text"
@@ -55,6 +58,14 @@ function Login(props) {
       </button>
     </div>
   );
+
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onLogin: () => dispatch({type: 'LOGIN'})
+  }
+}
+
+
+export default connect(null, mapDispatchToProps)(Login);

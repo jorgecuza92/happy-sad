@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Component } from "react";
 import "./Card.css";
 import {useEffect} from 'react'
 
@@ -26,7 +25,6 @@ function Card(props) {
     .then(response => response.json())
     .then(user => {
         localStorage.setItem('id', user.id)
-        console.log(user)
         setUser(user)
     })
   }
