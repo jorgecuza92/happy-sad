@@ -6,10 +6,11 @@ function ProfilePage() {
   return (
     <div>
  
-    <div className='cardContainer'>
+    <div className='cardContainer' style=
+    {{'text-align': "-webkit-center"}}>
       <Card />
-      <Image />
     </div>
+      <Image />
     </div>
   )
 }

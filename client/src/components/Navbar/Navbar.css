@@ -40,7 +40,7 @@
 }
 
 .nav-links:hover {
-    background-color: #6d76f7;
+    background-color:  rgba(136, 114, 157, 0.75);
     border-radius: 4px;
     transition: all 0.2s ease-out;
 }
