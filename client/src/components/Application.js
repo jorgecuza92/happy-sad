@@ -99,22 +99,24 @@ function Application() {
     <div>
      
         <div>
-        <TextField id="standard-basic" onChange={onChange}  name='company' label="Company" />
-        {/* <input type='text' placeholder='Company' onChange={onChange} name='company' required /> */}
-        <FormControlLabel
-          value="top"
-          control={<Checkbox color="primary" />}
-          label="Hide Company"
-          onChange={compCheck}
-          size='small'
-          name='seeComp'
-          labelPlacement="top"
-        />
-        {/* <input type='checkbox' onChange={compCheck} name='seeComp' />
-        <label>Hide Company</label> */}
+          <div>
+          <TextField id="standard-basic" onChange={onChange}  name='company' label="Company" />
+       
+       <FormControlLabel
+         value="top"
+         control={<Checkbox color="primary" />}
+         label ="Hide Company"
+         onChange={compCheck}
+         
+         name='seeComp'
+         labelPlacement="top"
+       />
+          </div>
+        
+       
         <TextField id="standard-basic" onChange={onChange}  name='title' label="Job Title" />
 
-        {/* <input type='text' placeholder='Job Title' onChange={onChange} name='title' required /> */}
+       
         <FormControlLabel
           value="top"
           control={<Checkbox color="primary" />}
@@ -124,8 +126,7 @@ function Application() {
           name='seeJob'
           labelPlacement="top"
         />
-        {/* <input type='checkbox' name='seeJob' onChange={jobCheck} id='assessment' />
-        <label>Hide JobTitle</label> */}
+       
           <Button
             variant="contained"
             color="default"
