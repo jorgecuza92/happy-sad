@@ -32,6 +32,9 @@ class Navbar extends Component {
                     <li key="Home">
                         <NavLink to="/" onClick={this.handleClick} className="nav-links">Home</NavLink>
                     </li>
+                    <li key="Top5">
+                        <NavLink to="/top5" onClick={this.handleClick} className="nav-links">Top 5</NavLink>
+                    </li>
                     <li key="Tracker">
                         <NavLink to="/app-track" onClick={this.handleClick} className="nav-links">Tracker</NavLink>
                     </li>

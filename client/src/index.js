@@ -17,6 +17,7 @@ import reducer from './utils/reducer'
 import AuthPath from './auth'
 import Logout from './components/logout'
 import Apples from './components/apples';
+import Top5 from './components/Top5'
 
 const closet = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
@@ -29,6 +30,7 @@ ReactDOM.render(
             <Route exact path='/register' component={Register} />
             <Route exact path='/login' component={Login} />
             <Route exact path='/logout' component={Logout} />
+            <Route exact path='/top5' component={Top5} />
             <Route exact path='/application' component={Application} />
             <Route exact path='/app-track' component={AuthPath(Apples)} />
             <Route exact path='/' component={Feed} />
