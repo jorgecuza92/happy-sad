@@ -1,7 +1,14 @@
 .appContent {
+  justify-content: space-evenly;
+}
+
+/* .appSearchInputContainer {
+  padding-inline: 105px;
+  max-width: 79.063rem;
+  margin: 10px;
+}
+
+.overallContainer {
+  display: flex;
   justify-content: center;
-}
-
-.appSearchInputContainer {
-
-}
+} */

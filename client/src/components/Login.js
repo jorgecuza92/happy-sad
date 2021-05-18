@@ -5,7 +5,12 @@ import { Grid, Paper, Avatar, TextField, Button, Typography, Link } from '@mater
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+
 import './Login.css';
+
+import {Animated} from "react-animated-css";
+
+
 
 function Login(props) {
   const [credentials, setCredentials] = useState({});
@@ -46,9 +51,14 @@ function Login(props) {
   const btnStyle = {margin: '10px 0', backgroundColor: "#DE7D63"}
   
   return (
+
     
     <Grid className="loginContainer" >
       <div className="innerLoginContainer">
+
+    <Animated animationIn='fadeIn'>
+    <Grid>
+
       <Paper elevation={10} style={paperStyle}>
         <Grid align='center'>
           <Avatar style={avatarStyle}><LockOutlinedIcon/></Avatar>
@@ -81,7 +91,12 @@ function Login(props) {
       </Paper>
       </div>
     </Grid>
+
    
+
+    </Animated>
+
+
 
 
     

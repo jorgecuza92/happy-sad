@@ -83,6 +83,7 @@ function Apptracker(props){
     }
 
     
+    
 
     const applications = apps.map((app)=>{
         if(app.hide_application){
@@ -124,8 +125,8 @@ function Apptracker(props){
     })
 
     return (
-
-        <div>
+        <div className='overallContainer'>
+        <div className='appTrackerContainer'>
        
        <br />
            
@@ -140,6 +141,7 @@ function Apptracker(props){
           color = 'white'
           onChange={handleChange}
           fullWidth
+          size='medium'
           name ='name '
           margin='normal'
           InputLabelProps={{
@@ -162,6 +164,7 @@ function Apptracker(props){
             
 
             </div>
+        </div>
         </div>
     )
 
