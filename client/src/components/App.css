@@ -54,6 +54,13 @@ body {
   background: #fff;
 }
 
+@media (max-width: 500px) {
+  .postDiv {
+    width: 300px;
+    display: flex;
+  }
+}
+
 .postDivContainer {
   display: flex;
   flex-direction: column;
