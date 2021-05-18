@@ -105,7 +105,7 @@ function Application() {
        
        <FormControlLabel
          value="top"
-         control={<Checkbox color="primary" />}
+         control={<Checkbox style={{color:"#614878"}}  />}
          label ="Hide Company"
          onChange={compCheck}
          
@@ -120,7 +120,7 @@ function Application() {
        
         <FormControlLabel
           value="top"
-          control={<Checkbox color="primary" />}
+          control={<Checkbox style={{color:"#614878"}}  />}
           label="Hide Job Title"
           onChange={jobCheck}
           size='small'
@@ -130,9 +130,10 @@ function Application() {
        
           <Button
             variant="contained"
-            color="default"
+            
             size="small"
             onClick={addApp}
+            style={{color:"white", background: "#c85f49" }}
             startIcon={<SaveIcon />}
           >
             Save Application

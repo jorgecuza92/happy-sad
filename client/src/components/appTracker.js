@@ -83,6 +83,7 @@ function Apptracker(props){
     }
 
     
+    
 
     const applications = apps.map((app)=>{
         if(app.hide_application){
