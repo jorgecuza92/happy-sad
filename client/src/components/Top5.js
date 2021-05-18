@@ -43,8 +43,8 @@ function Top5() {
               className="avatar"
             />
             <br />
-            <italics>{app.username}</italics> with <br />
-            <strong>{app.total_apps}</strong> Applications
+            <strong>{app.username}</strong> with <br />
+            <strong className='boldApps'>{app.total_apps}</strong> Applications
             <br />
             <br />
           </div>
