@@ -4,6 +4,7 @@ import TextField from '@material-ui/core/TextField'
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import SaveIcon from '@material-ui/icons/Save';
+import './Application.css'
 
 import Button from '@material-ui/core/Button';
 

@@ -8,6 +8,7 @@ import FormLabel from '@material-ui/core/FormLabel';
 import TextField from '@material-ui/core/TextField';
 import Application from './Application';
 import Switch from '@material-ui/core/Switch';
+import './appTracker.css'
 
 
 
@@ -130,9 +131,9 @@ function Apptracker(props){
            
             
             <br />
-            
+            <div className='appSearchInputContainer'>
             <TextField
-          id="outlined-full-width"
+          id="outlined"
         
           style={{ 'margin': "8px auto", background: 'white', placeholder: 'purple'}}
           placeholder="Search for Title or Company Name"
@@ -146,7 +147,7 @@ function Apptracker(props){
           }}
           variant="outlined"
         />
-            
+            </div>
             <br />
             
             <div className='appContent'>
