@@ -9,6 +9,7 @@ import TextField from '@material-ui/core/TextField';
 import Application from './Application';
 import Switch from '@material-ui/core/Switch';
 import './appTracker.css'
+import {Animated} from 'react-animated-css'
 
 
 
@@ -111,11 +112,12 @@ function Apptracker(props){
           />
            
         </FormGroup>
-       
+        <Animated animationIn='hinge'>
           <FormControlLabel
         control={<Switch  onChange={handleStatus} style={{color:"#c85f49"}} color='primary' value={app.id}  name="hide" />}
         label="Hide Application"
       />
+      </Animated>
       </FormControl>
     
         </div>

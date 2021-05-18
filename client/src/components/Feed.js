@@ -48,9 +48,11 @@ class Feed extends Component {
   }
   render() {
     return (
-      <div className="postDivContainer">
-        {this.state.posts.map((postdata, idx) => (<Post key={idx} post={postdata} />))}
-      </div>
+      <Animated animationIn='fadeInUp'>
+        <div className="postDivContainer">
+          {this.state.posts.map((postdata, idx) => (<Post key={idx} post={postdata} />))}
+        </div>
+      </Animated>
 
     );
   }
