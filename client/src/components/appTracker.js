@@ -26,7 +26,7 @@ function Apptracker(props){
         const username = localStorage.getItem('username')
         const token = localStorage.getItem('jsonwebtoken')
 
-        fetch(`http://localhost:8080/profile/${username}`, {
+        fetch(`https://api.succeedatfailing.com/profile/${username}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -46,7 +46,7 @@ function Apptracker(props){
           } else {
         const username = localStorage.getItem('username')
         axios
-        .get(`http://localhost:8080/search/${e.target.value},${username}`)
+        .get(`https://api.succeedatfailing.com/search/${e.target.value},${username}`)
         .then((response) => {
           if (response.data === "") {
             fetchAllApps();
@@ -67,7 +67,7 @@ function Apptracker(props){
         const id = e.target.value
         const decision = e.target.name
         console.log(id)
-        fetch(`http://localhost:8080/${decision}`, {
+        fetch(`https://api.succeedatfailing.com/${decision}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

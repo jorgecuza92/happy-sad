@@ -30,7 +30,7 @@ class Image extends Component {
           e.target.files[0],
           e.target.files[0].name
       )
-      axios.post('http://localhost:8080/upload', formData)
+      axios.post('https://api.succeedatfailing.com/upload', formData)
         
           .then(file => {
             console.log(file)
@@ -44,7 +44,7 @@ class Image extends Component {
 
   clickSave = () => {
     const id = localStorage.getItem('id')
-    fetch('http://localhost:8080/update', {
+    fetch('https://api.succeedatfailing.com//update', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

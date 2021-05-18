@@ -5,7 +5,7 @@ import heart from '../img/heart.svg';
 import raised_hands from '../img/raising.svg';
 import tada from '../img/party.svg';
 import Avatar from '@material-ui/core/Avatar';
-import {Animated} from "react-animated-css";
+import { Animated } from "react-animated-css";
 
 
 
@@ -20,7 +20,7 @@ class Feed extends Component {
   }
 
   fetchData = (pageNum) => {
-    let postUrl = 'http://localhost:8080/feed/' + pageNum;
+    let postUrl = 'https://api.succeedatfailing.com/feed/' + pageNum;
     fetch(postUrl)
       .then(res => res.json())
       .then(data => {
@@ -48,10 +48,11 @@ class Feed extends Component {
   }
   render() {
     return (
-      <div className="postDivContainer">
-        {this.state.posts.map((postdata, idx) => (<Post key={idx} post={postdata} />))}
-      </div>
-
+      <Animated animationIn="fadeInUp">
+        <div className="postDivContainer">
+          {this.state.posts.map((postdata, idx) => (<Post key={idx} post={postdata} />))}
+        </div>
+      </Animated>
     );
   }
 }
@@ -83,7 +84,7 @@ class Post extends Component {
           <EmojiTime post={this.props.post} />
 
         </div>
-       
+
       )
     }
     else if (this.props.post.see_title && this.props.post.see_company) {
@@ -142,7 +143,7 @@ class Post extends Component {
           <EmojiTime post={this.props.post} />
 
         </div>
-        
+
       )
     }
 
@@ -152,7 +153,7 @@ class Post extends Component {
 
 
 class EmojiTime extends Component {
-  
+
   render() {
 
     return (
@@ -198,19 +199,19 @@ class RaisedHands extends Component {
     let postID = this.props.post.id
     let user = this.props.post.user_id
     let emotion = "raised_hands"
-    let url = `http://localhost:8080/emoji/${sender},${user},${postID},${emotion}`
+    let url = `https://api.succeedatfailing.com/emoji/${sender},${user},${postID},${emotion}`
 
     if (this.state.buttonCLicked) {
       return (
         <Animated animationIn='pulse'>
-        <div className="emojiBox" style={{ background: '#de7d63' }}>
-          <div >
-            <img src={raised_hands} alt="" className="emoji" />
+          <div className="emojiBox" style={{ background: '#de7d63' }}>
+            <div >
+              <img src={raised_hands} alt="" className="emoji" />
+            </div>
+
+            <div><h5>{this.state.raised_hands}</h5></div>
+
           </div>
-
-          <div><h5>{this.state.raised_hands}</h5></div>
-
-        </div>
         </Animated>
       )
     } else {
@@ -258,18 +259,18 @@ class GiveHeart extends Component {
     let postID = this.props.post.id
     let user = this.props.post.user_id
     let emotion = "heart"
-    let url = `http://localhost:8080/emoji/${sender},${user},${postID},${emotion}`
+    let url = `https://api.succeedatfailing.com/emoji/${sender},${user},${postID},${emotion}`
 
 
     if (this.state.buttonCLicked) {
       return (
         <Animated animationIn='pulse'>
-        <div className="emojiBox" style={{ background: '#de7d63' }}>
-          <div>
-            <img src={heart} alt="" className="emoji" />
+          <div className="emojiBox" style={{ background: '#de7d63' }}>
+            <div>
+              <img src={heart} alt="" className="emoji" />
+            </div>
+            <div><h5>{this.state.heart}</h5></div>
           </div>
-          <div><h5>{this.state.heart}</h5></div>
-        </div>
         </Animated>
       )
     } else {
@@ -316,18 +317,18 @@ class GiveTada extends Component {
     let postID = this.props.post.id
     let user = this.props.post.user_id
     let emotion = "tada"
-    let url = `http://localhost:8080/emoji/${sender},${user},${postID},${emotion}`
+    let url = `https://api.succeedatfailing.com/emoji/${sender},${user},${postID},${emotion}`
 
 
     if (this.state.buttonCLicked) {
       return (
         <Animated animationIn='pulse'>
-        <div className="emojiBox" style={{ background: '#de7d63' }}>
-          <div>
-            <img src={tada} alt="" className="emoji" />
+          <div className="emojiBox" style={{ background: '#de7d63' }}>
+            <div>
+              <img src={tada} alt="" className="emoji" />
+            </div>
+            <div><h5>{this.state.tada}</h5></div>
           </div>
-          <div><h5>{this.state.tada}</h5></div>
-        </div>
         </Animated>
       )
     } else {
@@ -374,18 +375,18 @@ class GiveGrinning extends Component {
     let postID = this.props.post.id
     let user = this.props.post.user_id
     let emotion = "grinning"
-    let url = `http://localhost:8080/emoji/${sender},${user},${postID},${emotion}`
+    let url = `https://api.succeedatfailing.com/emoji/${sender},${user},${postID},${emotion}`
 
 
     if (this.state.buttonCLicked) {
       return (
         <Animated animationIn='pulse'>
-        <div className="emojiBox" style={{ background: '#de7d63' }}>
-          <div>
-            <img src={grinning} alt="" className="emoji" />
+          <div className="emojiBox" style={{ background: '#de7d63' }}>
+            <div>
+              <img src={grinning} alt="" className="emoji" />
+            </div>
+            <div><h5>{this.state.grinning}</h5></div>
           </div>
-          <div><h5>{this.state.grinning}</h5></div>
-        </div>
         </Animated>
       )
     } else {

@@ -23,7 +23,7 @@ function Login(props) {
   };
 
   const handleLogin = (id) => {
-    fetch("http://localhost:8080/login", {
+    fetch("https://api.succeedatfailing.com/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -84,7 +84,7 @@ function Login(props) {
 
               <Button type='submit' variant="contained" style={btnStyle} onClick={handleLogin} fullWidth>Sign In</Button>
               <Typography> Do you have an account ?
-              <Link href="http://localhost:3000/register" >
+              <Link href="https://api.succeedatfailing.com/register" >
                   Register
               </Link>
               </Typography>

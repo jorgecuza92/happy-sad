@@ -65,7 +65,7 @@ function Application(props) {
     props.apps()
 
     console.log('id')
-    fetch('http://localhost:8080/app', {
+    fetch('https://api.succeedatfailing.com/app', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

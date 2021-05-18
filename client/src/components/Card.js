@@ -17,7 +17,7 @@ function ProfileCard(props) {
     const token = localStorage.getItem('jsonwebtoken')
     const id = localStorage.getItem('id')
 
-    fetch(`http://localhost:8080/user/${id}`, {
+    fetch(`https://api.succeedatfailing.com/user/${id}`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`

@@ -13,7 +13,7 @@ function Top5() {
   }, []);
 
   const fetchTop5 = () => {
-    fetch("http://localhost:8080/top")
+    fetch("https://api.succeedatfailing.com/top")
       .then((response) => response.json())
       .then((top) => {
         console.log(top);

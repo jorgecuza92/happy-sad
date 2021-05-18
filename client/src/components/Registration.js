@@ -13,7 +13,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import {Animated} from 'react-animated-css';
 
-function Register() {
+function Register(props) {
   const [user, setUser] = useState({});
 
   const newUser = (e) => {
@@ -23,8 +23,8 @@ function Register() {
     });
   };
 
-  const registerUser = () => {
-    fetch("http://localhost:8080/register", {
+  const registerUser = (props) => {
+    fetch("https://api.succeedatfailing.com/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -35,6 +35,7 @@ function Register() {
       .then((result) => {
         if (result) {
           console.log("user Registered");
+          props.history.push('/login')
         }
       });
   };
@@ -95,7 +96,7 @@ function Register() {
             type="submit"
             variant="contained"
             style={btnStyle}
-            onClick={registerUser}
+            onClick={() => registerUser(props)}
             fullWidth
           >
             Register
@@ -103,7 +104,7 @@ function Register() {
           <Typography>
             {" "}
             Already have an account ?
-            <Link href="http://localhost:3000/login">Sign In</Link>
+            <Link href="https://api.succeedatfailing.com/login">Sign In</Link>
           </Typography>
         </Paper>
       </Grid>
