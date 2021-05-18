@@ -6,6 +6,11 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
+import './Login.css';
+
+import { Animated } from "react-animated-css";
+
+
 
 function Login(props) {
   const [credentials, setCredentials] = useState({});
@@ -41,53 +46,69 @@ function Login(props) {
       });
   };
 
-  const paperStyle = {padding:40, height: 'fit-content', width: 340, margin: "70px auto"}
-  const avatarStyle= {backgroundColor: "#88729D"}
-  const btnStyle = {margin: '10px 0', backgroundColor: "#DE7D63"}
-  return (
-    <Grid>
-      <Paper elevation={10} style={paperStyle}>
-        <Grid align='center'>
-          <Avatar style={avatarStyle}><LockOutlinedIcon/></Avatar>
-          <h2>Sign In</h2>
-        </Grid>
-      
-        <TextField label='Username' type="text"  name="username" 
-        onChange={handleChange}  fullWidth required/>
-        
-        <TextField label='Password' type="password"  name="password" 
-        onChange={handleChange}  fullWidth required/>
+  const paperStyle = { padding: 40, height: 'fit-content', width: 340, margin: "70px auto" }
+  const avatarStyle = { backgroundColor: "#88729D" }
+  const btnStyle = { margin: '10px 0', backgroundColor: "#DE7D63" }
 
-        <FormControlLabel
-        control={
-          <Checkbox
-            
-            name="checkedB"
-            color="primary"
-          />
-        }
-        label="Remember me"
-      />
-       
-        <Button type='submit' variant="contained" style={btnStyle} onClick={handleLogin} fullWidth>Sign In</Button>
-        <Typography> Do you have an account ?
-        <Link href="http://localhost:3000/register" >
-          Register
-        </Link>
-        </Typography>
-      </Paper>
+  return (
+
+
+    <Grid className="loginContainer" >
+      <div className="innerLoginContainer">
+
+        <Animated animationIn='fadeIn'>
+          <Grid>
+
+            <Paper elevation={10} style={paperStyle}>
+              <Grid align='center'>
+                <Avatar style={avatarStyle}><LockOutlinedIcon /></Avatar>
+                <h2>Sign In</h2>
+              </Grid>
+
+              <TextField label='Username' type="text" name="username"
+                onChange={handleChange} fullWidth required />
+
+              <TextField label='Password' type="password" name="password"
+                onChange={handleChange} fullWidth required />
+
+              <FormControlLabel
+                control={
+                  <Checkbox
+
+                    name="checkedB"
+                    color="primary"
+                  />
+                }
+                label="Remember me"
+              />
+
+              <Button type='submit' variant="contained" style={btnStyle} onClick={handleLogin} fullWidth>Sign In</Button>
+              <Typography> Do you have an account ?
+              <Link href="http://localhost:3000/register" >
+                  Register
+              </Link>
+              </Typography>
+            </Paper>
+          </Grid>
+        </Animated>
+      </div>
     </Grid>
 
 
 
-    
+
+
+
+
+
+
   );
 
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onLogin: () => dispatch({type: 'LOGIN'})
+        onLogin: () => dispatch({type: 'LOGIN'})
   }
 }
 

@@ -73,8 +73,6 @@ class Post extends Component {
 
     if (this.props.post.rejection) {
       return (
-
-
         <div className="postDiv" key={this.props.post.id}>
           <div className="userProfile">
             <Avatar alt="Remy Sharp" src={this.props.post.profileImage} />
@@ -85,6 +83,7 @@ class Post extends Component {
           <EmojiTime post={this.props.post} />
 
         </div>
+       
       )
     }
     else if (this.props.post.see_title && this.props.post.see_company) {
@@ -143,6 +142,7 @@ class Post extends Component {
           <EmojiTime post={this.props.post} />
 
         </div>
+        
       )
     }
 
