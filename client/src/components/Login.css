@@ -1,0 +1,14 @@
+
+
+
+@media (max-width: 375px) {
+    .innerLoginContainer {
+      width: 275px;
+      display: flex;
+      margin-left: 49px;
+    }
+    .loginContainer {
+        width: 100%;
+    }
+  }
+
