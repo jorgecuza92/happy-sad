@@ -82,7 +82,10 @@ function Apptracker(props){
 
     }
 
-    
+    const allApps = () =>{
+      fetchAllApps();
+    }
+
     
 
     const applications = apps.map((app)=>{
@@ -125,8 +128,8 @@ function Apptracker(props){
     })
 
     return (
-        <div className='overallContainer'>
-        <div className='appTrackerContainer'>
+
+        <div>
        
        <br />
            
@@ -141,7 +144,6 @@ function Apptracker(props){
           color = 'white'
           onChange={handleChange}
           fullWidth
-          size='medium'
           name ='name '
           margin='normal'
           InputLabelProps={{
@@ -155,7 +157,7 @@ function Apptracker(props){
             <div className='appContent'>
 
             <div className="trackDiv">
-                <Application />
+                <Application apps = {allApps}/>
             </div>
             
           <div className='applications'>
@@ -164,7 +166,6 @@ function Apptracker(props){
             
 
             </div>
-        </div>
         </div>
     )
 

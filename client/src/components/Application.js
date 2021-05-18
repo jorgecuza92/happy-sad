@@ -8,7 +8,7 @@ import './Application.css'
 
 import Button from '@material-ui/core/Button';
 
-function Application() {
+function Application(props) {
 
   const [application, setApplication] = useState('')
 
@@ -60,7 +60,9 @@ function Application() {
     })
   }
 
-  const addApp = () => {
+  const addApp = (props) => {
+
+    props.apps()
 
     console.log('id')
     fetch('http://localhost:8080/app', {
@@ -132,7 +134,7 @@ function Application() {
             variant="contained"
             
             size="small"
-            onClick={addApp}
+            onClick={()=> addApp(props)}
             style={{color:"white", background: "#c85f49" }}
             startIcon={<SaveIcon />}
           >
