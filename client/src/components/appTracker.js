@@ -9,6 +9,7 @@ import TextField from '@material-ui/core/TextField';
 import Application from './Application';
 import Switch from '@material-ui/core/Switch';
 import './appTracker.css'
+import Footer from './Footer';
 
 
 
@@ -166,6 +167,7 @@ function Apptracker(props){
             
 
             </div>
+            <Footer />
         </div>
     )
 

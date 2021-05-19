@@ -5,6 +5,8 @@ import { Accordion } from '@material-ui/core';
 import {Card} from '@material-ui/core'
 import './Image.css'
 import './ProfilePage.css'
+import Footer from './Footer';
+
 
 function ProfilePage() {
   return (
@@ -22,6 +24,9 @@ function ProfilePage() {
     <div className='updateEmail'>
     </div>
       </div>
+    <div>
+      <Footer />
+    </div>
     </div>
   )
 }

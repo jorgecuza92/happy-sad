@@ -4,6 +4,7 @@ import { Card, emphasize } from "@material-ui/core";
 import { Animated } from "react-animated-css";
 import "./Top5.css";
 import firstPlace from '../img/firstplace.svg'
+import Footer from "./Footer";
 
 function Top5() {
   const [top, setTop] = useState([]);
@@ -65,6 +66,7 @@ function Top5() {
         <br />
         <div className="top5Div">{topApps}</div>
       </Animated>
+      <Footer />
     </div>
   );
 }
