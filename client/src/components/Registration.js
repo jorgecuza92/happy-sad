@@ -104,7 +104,7 @@ function Register(props) {
           <Typography>
             {" "}
             Already have an account ?
-            <Link href="https://api.succeedatfailing.com/login">Sign In</Link>
+            <Link href="https://succeedatfailing.com/login">Sign In</Link>
           </Typography>
         </Paper>
       </Grid>

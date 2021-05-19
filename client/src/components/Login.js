@@ -84,7 +84,7 @@ function Login(props) {
 
               <Button type='submit' variant="contained" style={btnStyle} onClick={handleLogin} fullWidth>Sign In</Button>
               <Typography> Do you have an account ?
-              <Link href="https://api.succeedatfailing.com/register" >
+              <Link href="https://succeedatfailing.com/register" >
                   Register
               </Link>
               </Typography>

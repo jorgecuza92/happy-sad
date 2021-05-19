@@ -19,6 +19,7 @@ import Logout from './components/logout'
 import Apples from './components/apples';
 import Top5 from './components/Top5'
 
+
 const closet = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
 ReactDOM.render(
