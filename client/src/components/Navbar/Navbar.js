@@ -3,7 +3,7 @@ import './Navbar.css';
 import { Button } from '../Button';
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
-
+import logo from '../../img/safLogo.png'
 
 
 class Navbar extends Component {
@@ -26,7 +26,7 @@ class Navbar extends Component {
         return (
             <nav className="NavbarItems">
                 <NavLink to="/">
-                    <h1 className="navbar-logo">SAF<i className="fab fa-react"></i></h1>
+                 <img src={logo} className='logo'/>
                     </NavLink>
                     <div className="menu-icon" onClick={this.handleClick}>
                         <i className={this.state.clicked ? 'fas fa-times' : 'fas fa-bars'}></i>

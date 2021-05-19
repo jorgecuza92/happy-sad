@@ -9,17 +9,20 @@
     -moz-box-shadow: 3px 3px 5px 6px #ccc;
     box-shadow: 3px 3px 8px 6px #ccc !important;
 }
-
-.navbar-logo {
-    color: #fff;
+ 
+.logo {
+    /* color: #fff; */
     justify-self: start;
     margin-left: 20px;
     cursor: pointer;
+    height: 85px;
+    width: 150px;
+    vertical-align: middle;
 }
 
 .fa-react {
-    margin-left: 0.5rem;
-    font-size: 1.6rem;
+    /* margin-left: 0.5rem;
+    font-size: 1.6rem; */
 }
 
 .nav-menu {
@@ -30,13 +33,13 @@
     text-align: center;
     width: 70vw;
     justify-content: end;
-    margin-right: 2rem;
+    margin-right: 1.2rem;
 }
 
 .nav-links {
     color: white;
     text-decoration: none;
-    padding: 0.5rem 1rem;
+    padding: 0.4rem 0.9rem;
 }
 
 .nav-links:hover {
@@ -95,11 +98,11 @@
         color: #fff;
     }
 
-    .navbar-logo {
+    .logo {
         position: absolute;
         top: 0;
         left: 0;
-        transform: translate(25%, 50%);
+        /* transform: translate(25%, 50%); */
     }
 
     .menu-icon {
