@@ -51,7 +51,7 @@ class Navbar extends Component {
                     {this.state.clicked ? <div>{this.props.loggedin ? <NavLink className="nav-links" onClick={this.handleUnClick} to="/logout">Logout</NavLink> : null }</div> : null}
                 </ul>
                 
-                {this.props.loggedin ? null : <NavLink className="nav-links" to="/register"><Button>Register</Button></NavLink>}
+                {this.props.loggedin ? null : <NavLink  to="/register"><Button>Register</Button></NavLink>}
                 {this.props.loggedin ? null :<NavLink to="/login"><Button>Login</Button></NavLink>}
                 {this.props.loggedin ? <NavLink to="/logout"><Button>Logout</Button></NavLink> : null }
 
