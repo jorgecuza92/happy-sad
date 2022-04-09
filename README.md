@@ -1,7 +1,7 @@
 # Succeed At Failing
 
 * **live link:**
-https://succeedatfailing.com/
+https://saf.agentlopez.com/
 
 * **Demo Video:**
 https://www.youtube.com/watch?v=ikO18FW1YKg
@@ -30,7 +30,7 @@ This project is built using MySQL with Sequelize for Relational Mapping.
 ## Featured programs: 
 ReactJS, Redux, Material UI, Express, Bcrypt.js, HTML, CSS, JWT, Node.js, MySQL, GitHub, VScode, JSX.
 ## Internal API:
-https://api.succeedatfailing.com
+https://api.agentlopez.com
 ## Authors:
 [Hao Dam](https://github.com/haodam87), [Fred Lopez](https://github.com/AgentLopez), [Jorge Cuza](https://github.com/jorgecuza92), [Michael Warren](https://github.com/mikewarren02)
 
